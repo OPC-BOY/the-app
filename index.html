@@ -263,32 +263,58 @@
       border-color: var(--primary);
     }
 
-    .group-box {
+    /* Collapsible Group Details & Summary */
+    details.group-details {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
+      overflow: hidden;
     }
 
-    .group-title {
-      font-size: 18px;
+    details.group-details summary {
+      padding: 16px 20px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      background: var(--bg-card);
+    }
+
+    details.group-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.group-details summary::after {
+      content: '▼';
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: var(--text-muted);
+    }
+
+    details.group-details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .group-content {
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border-color);
     }
 
     .vocab-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       gap: 10px;
     }
 
@@ -377,6 +403,72 @@
       line-height: 1.5;
     }
 
+    /* Quiz Container Styling */
+    .quiz-mode-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-btn {
+      padding: 12px 24px;
+      background: var(--primary);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 12px;
+      margin-right: 10px;
+    }
+
+    .quiz-btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .quiz-question-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      text-align: left;
+      font-size: 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-btn.correct {
+      background: #2ecc71 !important;
+      color: #fff !important;
+      border-color: #2ecc71 !important;
+    }
+
+    .option-btn.wrong {
+      background: #e74c3c !important;
+      color: #fff !important;
+      border-color: #e74c3c !important;
+    }
+
     /* Mobile Responsive Adjustments */
     @media (max-width: 768px) {
       body {
@@ -452,6 +544,11 @@
       <a class="nav-item" onclick="switchTab('idioms', this)">Idioms</a>
       <a class="nav-item" onclick="switchTab('derivatives', this)">Derivatives & Notes</a>
     </div>
+
+    <div class="nav-section">
+      <span class="section-title">PRACTICE</span>
+      <a class="nav-item" onclick="switchTab('quizView', this)">📝 Practice Quiz</a>
+    </div>
   </aside>
 
   <!-- Main Content -->
@@ -483,11 +580,11 @@
       <div class="cards-grid">
         <div class="card" onclick="switchTab('keyVoc')">
           <h3>★ Key Vocabulary</h3>
-          <p>20 Words (2 Groups)</p>
+          <p>20 Words (6 per group)</p>
         </div>
         <div class="card" onclick="switchTab('mainVoc')">
           <h3>A Main Vocabulary</h3>
-          <p>42 Words (5 Groups)</p>
+          <p>42 Words (6 per group)</p>
         </div>
         <div class="card" onclick="switchTab('definitions')">
           <h3>📖 Definitions</h3>
@@ -513,19 +610,23 @@
           <h3>📝 Derivatives & Notes</h3>
           <p>10 Language Notes</p>
         </div>
+        <div class="card" onclick="switchTab('quizView')">
+          <h3>📝 Practice Quiz</h3>
+          <p>Test saved or all words</p>
+        </div>
       </div>
     </div>
 
     <!-- 2. Key Vocabulary -->
     <div id="keyVoc" class="view-section">
-      <h2>Key Vocabulary (Grouped)</h2>
+      <h2>Key Vocabulary (6 Words per Group)</h2>
       <br>
       <div id="keyVocContainer"></div>
     </div>
 
     <!-- 3. Main Vocabulary -->
     <div id="mainVoc" class="view-section">
-      <h2>Main Vocabulary (Grouped)</h2>
+      <h2>Main Vocabulary (6 Words per Group)</h2>
       <br>
       <div id="mainVocContainer"></div>
     </div>
@@ -582,11 +683,26 @@
       <div id="derivativesContainer"></div>
     </div>
 
+    <!-- 10. Quiz Section -->
+    <div id="quizView" class="view-section">
+      <h2>Vocabulary Practice Quiz</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">اختبر حفظك للكلمات المحددة كمحفوظة أو كل كلمات الوحدة لتأكيد التطبيق والحفظ التام.</p>
+      
+      <div class="quiz-mode-card">
+        <h3>اختر نوع الكويز:</h3>
+        <button class="quiz-btn" onclick="startQuiz('saved')">اختبار الكلمات المحفوظة فقط</button>
+        <button class="quiz-btn quiz-btn-secondary" onclick="startQuiz('all')">اختبار شامل (جميع الكلمات)</button>
+      </div>
+
+      <div id="quizBox" style="display: none;"></div>
+    </div>
+
   </main>
 
   <script src="words.js"></script>
   <script>
     const currentUnit = unitsData.unit1;
+    let savedCheckedWords = JSON.parse(localStorage.getItem('savedWordsList')) || [];
 
     function chunkArray(array, chunkSize) {
       const results = [];
@@ -597,44 +713,50 @@
     }
 
     function loadData() {
-      const keyGroups = chunkArray(currentUnit.keyVocab, 10);
+      // Key Vocab (6 words per group)
+      const keyGroups = chunkArray(currentUnit.keyVocab, 6);
       document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => `
-        <div class="group-box">
-          <div class="group-title">Group ${idx + 1} (${group.length} Words)</div>
-          ${group.map(v => `
-            <div class="vocab-card">
-              <div class="vocab-info">
-                <input type="checkbox" onchange="updateProgress()">
-                <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                <div>
-                  <strong>${v.word}</strong> <small>(${v.pos})</small>
-                  <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+        <details class="group-details" open>
+          <summary>Group ${idx + 1} (${group.length} Words)</summary>
+          <div class="group-content">
+            ${group.map(v => `
+              <div class="vocab-card">
+                <div class="vocab-info">
+                  <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                  <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                  <div>
+                    <strong>${v.word}</strong> <small>(${v.pos})</small>
+                    <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                  </div>
                 </div>
+                <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
               </div>
-              <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-            </div>
-          `).join('')}
-        </div>
+            `).join('')}
+          </div>
+        </details>
       `).join('');
 
-      const mainGroups = chunkArray(currentUnit.mainVocab, 10);
+      // Main Vocab (6 words per group)
+      const mainGroups = chunkArray(currentUnit.mainVocab, 6);
       document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => `
-        <div class="group-box">
-          <div class="group-title">Group ${idx + 1} (${group.length} Words)</div>
-          ${group.map(v => `
-            <div class="vocab-card">
-              <div class="vocab-info">
-                <input type="checkbox" onchange="updateProgress()">
-                <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                <div>
-                  <strong>${v.word}</strong> <small>(${v.pos})</small>
-                  <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+        <details class="group-details">
+          <summary>Group ${idx + 1} (${group.length} Words)</summary>
+          <div class="group-content">
+            ${group.map(v => `
+              <div class="vocab-card">
+                <div class="vocab-info">
+                  <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                  <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                  <div>
+                    <strong>${v.word}</strong> <small>(${v.pos})</small>
+                    <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                  </div>
                 </div>
+                <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
               </div>
-              <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-            </div>
-          `).join('')}
-        </div>
+            `).join('')}
+          </div>
+        </details>
       `).join('');
 
       document.getElementById('definitionsContainer').innerHTML = currentUnit.definitions.map(d => `
@@ -679,6 +801,18 @@
           <p>${dn.detail}</p>
         </div>
       `).join('');
+
+      updateProgress();
+    }
+
+    function toggleWordSaved(word, cb) {
+      if(cb.checked) {
+        if(!savedCheckedWords.includes(word)) savedCheckedWords.push(word);
+      } else {
+        savedCheckedWords = savedCheckedWords.filter(w => w !== word);
+      }
+      localStorage.setItem('savedWordsList', JSON.stringify(savedCheckedWords));
+      updateProgress();
     }
 
     function switchTab(tabId, element) {
@@ -690,7 +824,6 @@
         element.classList.add('active');
       }
 
-      // Close sidebar on mobile upon selecting an item
       if(window.innerWidth <= 768) {
         document.getElementById('sidebar').classList.remove('open');
       }
@@ -718,9 +851,8 @@
     }
 
     function updateProgress() {
-      const allBoxes = document.querySelectorAll('input[type="checkbox"]');
-      const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
-      const percent = Math.round((checkedBoxes.length / allBoxes.length) * 100) || 0;
+      const totalWords = currentUnit.keyVocab.length + currentUnit.mainVocab.length;
+      const percent = Math.round((savedCheckedWords.length / totalWords) * 100) || 0;
       document.getElementById('overallProgress').innerText = percent + '%';
     }
 
@@ -730,6 +862,82 @@
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       htmlEle.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
+    }
+
+    /* QUIZ LOGIC */
+    let currentQuizPool = [];
+    let currentQIndex = 0;
+    let quizScore = 0;
+
+    function startQuiz(mode) {
+      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+      if (mode === 'saved') {
+        currentQuizPool = allWords.filter(w => savedCheckedWords.includes(w.word));
+      } else {
+        currentQuizPool = [...allWords];
+      }
+
+      if(currentQuizPool.length < 2) {
+        alert("تنبيه: يجب تحديد كلمتين محفوظتين على الأقل لبدء كويز الكلمات المحفوظة!");
+        return;
+      }
+
+      // Shuffle Quiz Pool
+      currentQuizPool.sort(() => Math.random() - 0.5);
+      currentQIndex = 0;
+      quizScore = 0;
+      document.getElementById('quizBox').style.display = 'block';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      if(currentQIndex >= currentQuizPool.length) {
+        document.getElementById('quizBox').innerHTML = `
+          <div class="quiz-question-box" style="text-align: center;">
+            <h2>🎉 انتهى الاختبار!</h2>
+            <p style="font-size: 18px; margin: 15px 0;">حصلت على: <strong>${quizScore} من ${currentQuizPool.length}</strong></p>
+            <button class="quiz-btn" onclick="document.getElementById('quizBox').style.display='none'">إغلاق الكويز</button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = currentQuizPool[currentQIndex];
+      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+      
+      // Get 3 wrong distractors
+      let options = [q.translation];
+      let distractors = allWords.filter(w => w.translation !== q.translation);
+      distractors.sort(() => Math.random() - 0.5);
+      options.push(distractors[0].translation, distractors[1].translation, distractors[2].translation);
+      options.sort(() => Math.random() - 0.5);
+
+      document.getElementById('quizBox').innerHTML = `
+        <div class="quiz-question-box">
+          <p style="color: var(--text-muted); font-weight: bold;">سؤال ${currentQIndex + 1} من ${currentQuizPool.length}</p>
+          <h3 style="font-size: 22px; margin: 10px 0;">ما هو معنى كلمة: <span style="color: var(--primary);">${q.word}</span> ؟</h3>
+          ${options.map(opt => `
+            <button class="option-btn" onclick="checkAnswer(this, '${opt === q.translation}')">${opt}</button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function checkAnswer(btn, isCorrect) {
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if(isCorrect === 'true') {
+        btn.classList.add('correct');
+        quizScore++;
+      } else {
+        btn.classList.add('wrong');
+      }
+
+      setTimeout(() => {
+        currentQIndex++;
+        renderQuestion();
+      }, 1200);
     }
 
     const savedTheme = localStorage.getItem('theme') || 'light';
