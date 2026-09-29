@@ -55,8 +55,10 @@
       color: var(--text-dark);
       display: flex;
       min-height: 100vh;
+      position: relative;
     }
 
+    /* Sidebar Styling */
     .sidebar {
       width: 280px;
       background: var(--bg-card);
@@ -69,6 +71,7 @@
       top: 0;
       height: 100vh;
       overflow-y: auto;
+      z-index: 1000;
     }
 
     .brand {
@@ -145,12 +148,14 @@
       font-weight: 600;
     }
 
+    /* Main Content */
     .main-content {
       flex: 1;
       padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 24px;
+      width: 100%;
     }
 
     .top-bar {
@@ -179,6 +184,11 @@
       cursor: pointer;
     }
 
+    .menu-toggle {
+      display: none;
+    }
+
+    /* Banner */
     .banner {
       background: var(--banner-bg);
       border: 1px solid var(--border-color);
@@ -188,6 +198,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
     }
 
     .banner-info span {
@@ -219,8 +230,10 @@
       font-weight: 700;
       font-size: 16px;
       color: var(--primary);
+      flex-shrink: 0;
     }
 
+    /* Views */
     .view-section {
       display: none;
     }
@@ -231,7 +244,7 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
     }
 
@@ -250,7 +263,6 @@
       border-color: var(--primary);
     }
 
-    /* Group Box Styling */
     .group-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -277,6 +289,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
+      gap: 10px;
     }
 
     .vocab-info {
@@ -289,12 +302,12 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .dot-green { background-color: #2ecc71; }
     .dot-red { background-color: #e74c3c; }
 
-    /* Synonyms & Antonyms */
     .syn-word-list {
       display: flex;
       gap: 10px;
@@ -344,7 +357,6 @@
       color: var(--antonym-text);
     }
 
-    /* List Items Styling */
     .item-list-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -364,12 +376,54 @@
       font-size: 14px;
       line-height: 1.5;
     }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 260px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .main-content {
+        padding: 16px;
+      }
+
+      .banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .banner-info h1 {
+        font-size: 22px;
+      }
+
+      .progress-circle {
+        align-self: flex-end;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-icon">V</div>
       <div class="brand-text">
@@ -403,7 +457,10 @@
   <!-- Main Content -->
   <main class="main-content">
     <div class="top-bar">
-      <span>Unit 1 / Lessons 1–2</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="icon-btn menu-toggle" onclick="toggleSidebar()">☰</button>
+        <span>Unit 1 / Lessons 1–2</span>
+      </div>
       <div class="actions">
         <button class="icon-btn" onclick="toggleDarkMode()">🌓</button>
       </div>
@@ -459,14 +516,14 @@
       </div>
     </div>
 
-    <!-- 2. Key Vocabulary (Grouped) -->
+    <!-- 2. Key Vocabulary -->
     <div id="keyVoc" class="view-section">
       <h2>Key Vocabulary (Grouped)</h2>
       <br>
       <div id="keyVocContainer"></div>
     </div>
 
-    <!-- 3. Main Vocabulary (Grouped) -->
+    <!-- 3. Main Vocabulary -->
     <div id="mainVoc" class="view-section">
       <h2>Main Vocabulary (Grouped)</h2>
       <br>
@@ -531,7 +588,6 @@
   <script>
     const currentUnit = unitsData.unit1;
 
-    // Helper: Chunk array into groups of N
     function chunkArray(array, chunkSize) {
       const results = [];
       for (let i = 0; i < array.length; i += chunkSize) {
@@ -540,9 +596,7 @@
       return results;
     }
 
-    // Load Data into UI
     function loadData() {
-      // 1. Key Vocab (Grouped by 10)
       const keyGroups = chunkArray(currentUnit.keyVocab, 10);
       document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => `
         <div class="group-box">
@@ -563,7 +617,6 @@
         </div>
       `).join('');
 
-      // 2. Main Vocab (Grouped by 10)
       const mainGroups = chunkArray(currentUnit.mainVocab, 10);
       document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => `
         <div class="group-box">
@@ -584,7 +637,6 @@
         </div>
       `).join('');
 
-      // 3. Definitions
       document.getElementById('definitionsContainer').innerHTML = currentUnit.definitions.map(d => `
         <div class="item-list-card">
           <h4>${d.word}</h4>
@@ -593,12 +645,10 @@
         </div>
       `).join('');
 
-      // 4. Synonyms Buttons
       document.getElementById('synButtons').innerHTML = currentUnit.wordRelations.map((rel, idx) => `
         <button class="syn-btn" onclick="showRelations(${idx}, this)">${rel.word}</button>
       `).join('');
 
-      // 5. Collocations
       document.getElementById('collocationsContainer').innerHTML = currentUnit.collocations.map(c => `
         <div class="vocab-card">
           <div>
@@ -609,7 +659,6 @@
         </div>
       `).join('');
 
-      // 6. Expressions
       document.getElementById('expressionsContainer').innerHTML = currentUnit.expressions.map(e => `
         <div class="item-list-card">
           <h4>${e.exp}</h4>
@@ -617,7 +666,6 @@
         </div>
       `).join('');
 
-      // 7. Idioms
       document.getElementById('idiomsContainer').innerHTML = currentUnit.idioms.map(i => `
         <div class="item-list-card">
           <h4>${i.idiom}</h4>
@@ -625,7 +673,6 @@
         </div>
       `).join('');
 
-      // 8. Derivatives & Notes
       document.getElementById('derivativesContainer').innerHTML = currentUnit.derivativesNotes.map(dn => `
         <div class="item-list-card">
           <h4>${dn.item}</h4>
@@ -642,6 +689,15 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
       }
+
+      // Close sidebar on mobile upon selecting an item
+      if(window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
     }
 
     function showRelations(index, btn) {
