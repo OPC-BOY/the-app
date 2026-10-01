@@ -9,13 +9,14 @@
     :root {
       --bg-main: #f5f7fb;
       --bg-card: #ffffff;
-      --primary: #7c5cfc;
+      --primary: #6c47ff;
       --primary-light: #f0ebff;
-      --text-dark: #1e293b;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --banner-bg: linear-gradient(135deg, #7c5cfc 0%, #6842ff 100%);
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --banner-bg: linear-gradient(135deg, #6c47ff 0%, #4f22ef 100%);
       --banner-text: #ffffff;
+      --progress-text: #6c47ff;
       --synonym-bg: #e8f8f0;
       --synonym-border: #2ecc71;
       --synonym-text: #1e7e34;
@@ -27,13 +28,14 @@
     [data-theme="dark"] {
       --bg-main: #0a0a0a;
       --bg-card: #141414;
-      --primary: #d4af37;
-      --primary-light: rgba(212, 175, 55, 0.15);
-      --text-dark: #f5f5f5;
-      --text-muted: #a3a3a3;
-      --border-color: #262626;
+      --primary: #f59e0b;
+      --primary-light: rgba(245, 158, 11, 0.15);
+      --text-dark: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border-color: #334155;
       --banner-bg: linear-gradient(135deg, #1f1c10 0%, #141414 100%);
-      --banner-text: #d4af37;
+      --banner-text: #f59e0b;
+      --progress-text: #f59e0b;
       --synonym-bg: #112a1d;
       --synonym-border: #27ae60;
       --synonym-text: #2ecc71;
@@ -58,7 +60,7 @@
       position: relative;
     }
 
-    /* Sidebar Styling */
+    /* Sidebar */
     .sidebar {
       width: 280px;
       background: var(--bg-card);
@@ -219,17 +221,18 @@
     }
 
     .progress-circle {
-      width: 70px;
-      height: 70px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
       border: 6px solid var(--border-color);
       border-top-color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--primary);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--progress-text);
+      background: var(--bg-card);
       flex-shrink: 0;
     }
 
@@ -263,7 +266,7 @@
       border-color: var(--primary);
     }
 
-    /* Collapsible Group Details & Summary */
+    /* Collapsible Details */
     details.group-details {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -290,15 +293,14 @@
       display: none;
     }
 
-    details.group-details summary::after {
-      content: '▼';
+    .group-badge {
+      background: var(--primary-light);
+      color: var(--primary);
       font-size: 12px;
-      transition: transform 0.2s;
-      color: var(--text-muted);
-    }
-
-    details.group-details[open] summary::after {
-      transform: rotate(180deg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      font-weight: 600;
     }
 
     .group-content {
@@ -403,7 +405,7 @@
       line-height: 1.5;
     }
 
-    /* Quiz Container Styling */
+    /* Practice & Quiz */
     .quiz-mode-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -413,15 +415,15 @@
     }
 
     .quiz-btn {
-      padding: 12px 24px;
+      padding: 12px 20px;
       background: var(--primary);
       color: #000;
       font-weight: 700;
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      margin-top: 12px;
-      margin-right: 10px;
+      margin-top: 10px;
+      margin-right: 8px;
     }
 
     .quiz-btn-secondary {
@@ -469,7 +471,18 @@
       border-color: #e74c3c !important;
     }
 
-    /* Mobile Responsive Adjustments */
+    .error-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-right: 4px solid #e74c3c;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     @media (max-width: 768px) {
       body {
         flex-direction: column;
@@ -546,8 +559,9 @@
     </div>
 
     <div class="nav-section">
-      <span class="section-title">PRACTICE</span>
-      <a class="nav-item" onclick="switchTab('quizView', this)">📝 Practice Quiz</a>
+      <span class="section-title">PRACTICE & QUIZ</span>
+      <a class="nav-item" onclick="switchTab('quizView', this)">📝 Multiple Choice Quiz</a>
+      <a class="nav-item" onclick="switchTab('listeningView', this)">🎧 Listening Practice</a>
     </div>
   </aside>
 
@@ -573,7 +587,7 @@
       <div class="progress-circle" id="overallProgress">0%</div>
     </div>
 
-    <!-- 1. Overview -->
+    <!-- Overview -->
     <div id="overview" class="view-section active">
       <h2>Lesson Dashboard</h2>
       <br>
@@ -611,34 +625,38 @@
           <p>10 Language Notes</p>
         </div>
         <div class="card" onclick="switchTab('quizView')">
-          <h3>📝 Practice Quiz</h3>
-          <p>Test saved or all words</p>
+          <h3>📝 Multiple Choice Quiz</h3>
+          <p>Ranked & Free Modes</p>
+        </div>
+        <div class="card" onclick="switchTab('listeningView')">
+          <h3>🎧 Listening Practice</h3>
+          <p>Audio Quiz & 1-Min Challenge</p>
         </div>
       </div>
     </div>
 
-    <!-- 2. Key Vocabulary -->
+    <!-- Key Vocabulary -->
     <div id="keyVoc" class="view-section">
       <h2>Key Vocabulary (6 Words per Group)</h2>
       <br>
       <div id="keyVocContainer"></div>
     </div>
 
-    <!-- 3. Main Vocabulary -->
+    <!-- Main Vocabulary -->
     <div id="mainVoc" class="view-section">
       <h2>Main Vocabulary (6 Words per Group)</h2>
       <br>
       <div id="mainVocContainer"></div>
     </div>
 
-    <!-- 4. Definitions -->
+    <!-- Definitions -->
     <div id="definitions" class="view-section">
       <h2>Definitions</h2>
       <br>
       <div id="definitionsContainer"></div>
     </div>
 
-    <!-- 5. Synonyms & Antonyms -->
+    <!-- Synonyms & Antonyms -->
     <div id="synonyms" class="view-section">
       <h2>Synonyms & Antonyms</h2>
       <p style="color: var(--text-muted); margin-bottom: 15px;">اختر الكلمة لعرض المرادفات والتضادات الخاصّة بها:</p>
@@ -655,46 +673,68 @@
       </div>
     </div>
 
-    <!-- 6. Collocations -->
+    <!-- Collocations -->
     <div id="collocations" class="view-section">
       <h2>Collocations & Prepositions</h2>
       <br>
       <div id="collocationsContainer"></div>
     </div>
 
-    <!-- 7. Expressions -->
+    <!-- Expressions -->
     <div id="expressions" class="view-section">
       <h2>Expressions</h2>
       <br>
       <div id="expressionsContainer"></div>
     </div>
 
-    <!-- 8. Idioms -->
+    <!-- Idioms -->
     <div id="idioms" class="view-section">
       <h2>Idioms</h2>
       <br>
       <div id="idiomsContainer"></div>
     </div>
 
-    <!-- 9. Derivatives & Notes -->
+    <!-- Derivatives -->
     <div id="derivatives" class="view-section">
       <h2>Derivatives & Language Notes</h2>
       <br>
       <div id="derivativesContainer"></div>
     </div>
 
-    <!-- 10. Quiz Section -->
+    <!-- Quiz View -->
     <div id="quizView" class="view-section">
-      <h2>Vocabulary Practice Quiz</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;">اختبر حفظك للكلمات المحددة كمحفوظة أو كل كلمات الوحدة لتأكيد التطبيق والحفظ التام.</p>
-      
-      <div class="quiz-mode-card">
-        <h3>اختر نوع الكويز:</h3>
-        <button class="quiz-btn" onclick="startQuiz('saved')">اختبار الكلمات المحفوظة فقط</button>
-        <button class="quiz-btn quiz-btn-secondary" onclick="startQuiz('all')">اختبار شامل (جميع الكلمات)</button>
+      <h2>Multiple Choice Quiz</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">اختبر حفظك اختر نوع الكلمات المحددة والنمط المناسب لك.</p>
+
+      <div class="quiz-mode-card" id="quizSetupCard">
+        <h3>1. اختر نوع الكلمات:</h3>
+        <button class="quiz-btn" id="btnPoolSaved" onclick="selectPool('saved')">الكلمات المحفوظة فقط</button>
+        <button class="quiz-btn quiz-btn-secondary" id="btnPoolAll" onclick="selectPool('all')">جميع الكلمات</button>
+
+        <h3 style="margin-top: 20px;">2. اختر نمط الكويز:</h3>
+        <button class="quiz-btn" onclick="startSelectedQuiz('free')">المود المفتوح (Free Mode)</button>
+        <button class="quiz-btn quiz-btn-secondary" onclick="startSelectedQuiz('timer')">مود التايمر والرانك (Timer Mode)</button>
       </div>
 
       <div id="quizBox" style="display: none;"></div>
+    </div>
+
+    <!-- Listening Practice View -->
+    <div id="listeningView" class="view-section">
+      <h2>🎧 Listening Practice (جزء التسميع الصوتي)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">استمع للكلمة الإنجليزية واختر الترجمة الصحيحة فوراً.</p>
+
+      <div class="quiz-mode-card" id="listeningSetupCard">
+        <h3>1. اختر مجموعة الكلمات:</h3>
+        <button class="quiz-btn" id="btnListSaved" onclick="selectListenPool('saved')">تسميع الكلمات المحفوظة فقط</button>
+        <button class="quiz-btn quiz-btn-secondary" id="btnListAll" onclick="selectListenPool('all')">تسميع كل الكلمات</button>
+
+        <h3 style="margin-top: 20px;">2. اختر نمط التسميع:</h3>
+        <button class="quiz-btn" onclick="startListeningQuiz('free')">تسميع مفتوح (Free)</button>
+        <button class="quiz-btn quiz-btn-secondary" onclick="startListeningQuiz('1min')">تحدي الدقيقة الواحدة ⏱️</button>
+      </div>
+
+      <div id="listeningBox" style="display: none;"></div>
     </div>
 
   </main>
@@ -713,51 +753,63 @@
     }
 
     function loadData() {
-      // Key Vocab (6 words per group)
+      // Key Vocab
       const keyGroups = chunkArray(currentUnit.keyVocab, 6);
-      document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => `
-        <details class="group-details" open>
-          <summary>Group ${idx + 1} (${group.length} Words)</summary>
-          <div class="group-content">
-            ${group.map(v => `
-              <div class="vocab-card">
-                <div class="vocab-info">
-                  <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
-                  <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                  <div>
-                    <strong>${v.word}</strong> <small>(${v.pos})</small>
-                    <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+      document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => {
+        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
+        return `
+          <details class="group-details">
+            <summary>
+              <span>Group ${idx + 1}</span>
+              <span class="group-badge">Completed ${savedInGroup}/${group.length}</span>
+            </summary>
+            <div class="group-content">
+              ${group.map(v => `
+                <div class="vocab-card" id="card-${v.word}">
+                  <div class="vocab-info">
+                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                    <div>
+                      <strong>${v.word}</strong> <small>(${v.pos})</small>
+                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                    </div>
                   </div>
+                  <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
                 </div>
-                <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-              </div>
-            `).join('')}
-          </div>
-        </details>
-      `).join('');
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
 
-      // Main Vocab (6 words per group)
+      // Main Vocab
       const mainGroups = chunkArray(currentUnit.mainVocab, 6);
-      document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => `
-        <details class="group-details">
-          <summary>Group ${idx + 1} (${group.length} Words)</summary>
-          <div class="group-content">
-            ${group.map(v => `
-              <div class="vocab-card">
-                <div class="vocab-info">
-                  <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
-                  <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                  <div>
-                    <strong>${v.word}</strong> <small>(${v.pos})</small>
-                    <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+      document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => {
+        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
+        return `
+          <details class="group-details">
+            <summary>
+              <span>Group ${idx + 1}</span>
+              <span class="group-badge">Completed ${savedInGroup}/${group.length}</span>
+            </summary>
+            <div class="group-content">
+              ${group.map(v => `
+                <div class="vocab-card" id="card-${v.word}">
+                  <div class="vocab-info">
+                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                    <div>
+                      <strong>${v.word}</strong> <small>(${v.pos})</small>
+                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                    </div>
                   </div>
+                  <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
                 </div>
-                <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-              </div>
-            `).join('')}
-          </div>
-        </details>
-      `).join('');
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
 
       document.getElementById('definitionsContainer').innerHTML = currentUnit.definitions.map(d => `
         <div class="item-list-card">
@@ -812,7 +864,7 @@
         savedCheckedWords = savedCheckedWords.filter(w => w !== word);
       }
       localStorage.setItem('savedWordsList', JSON.stringify(savedCheckedWords));
-      updateProgress();
+      loadData();
     }
 
     function switchTab(tabId, element) {
@@ -827,6 +879,18 @@
       if(window.innerWidth <= 768) {
         document.getElementById('sidebar').classList.remove('open');
       }
+    }
+
+    function navigateToWord(word) {
+      const isKey = currentUnit.keyVocab.some(v => v.word === word);
+      switchTab(isKey ? 'keyVoc' : 'mainVoc');
+      setTimeout(() => {
+        const el = document.getElementById(`card-${word}`);
+        if(el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.border = '2px solid var(--primary)';
+        }
+      }, 300);
     }
 
     function toggleSidebar() {
@@ -864,39 +928,93 @@
       localStorage.setItem('theme', newTheme);
     }
 
-    /* QUIZ LOGIC */
+    /* MC QUIZ SYSTEM */
+    let quizPoolChoice = 'saved';
+    let quizModeChoice = 'free';
     let currentQuizPool = [];
     let currentQIndex = 0;
     let quizScore = 0;
+    let wrongWordsList = [];
+    let quizTimerInterval = null;
+    let secondsElapsed = 0;
 
-    function startQuiz(mode) {
+    function selectPool(mode) {
+      quizPoolChoice = mode;
+      document.getElementById('btnPoolSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+      document.getElementById('btnPoolAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+    }
+
+    function startSelectedQuiz(mode) {
+      quizModeChoice = mode;
       const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
-      if (mode === 'saved') {
+      
+      if (quizPoolChoice === 'saved') {
         currentQuizPool = allWords.filter(w => savedCheckedWords.includes(w.word));
       } else {
         currentQuizPool = [...allWords];
       }
 
       if(currentQuizPool.length < 2) {
-        alert("تنبيه: يجب تحديد كلمتين محفوظتين على الأقل لبدء كويز الكلمات المحفوظة!");
+        alert("تنبيه: يلزم تحديد كلمتين على الأقل لبدء الكويز!");
         return;
       }
 
-      // Shuffle Quiz Pool
       currentQuizPool.sort(() => Math.random() - 0.5);
       currentQIndex = 0;
       quizScore = 0;
+      wrongWordsList = [];
+      secondsElapsed = 0;
+
+      if(quizTimerInterval) clearInterval(quizTimerInterval);
+
+      if(quizModeChoice === 'timer') {
+        quizTimerInterval = setInterval(() => {
+          secondsElapsed++;
+          const timerEl = document.getElementById('timerDisplay');
+          if(timerEl) timerEl.innerText = `الوقت: ${secondsElapsed} ثانية`;
+        }, 1000);
+      }
+
       document.getElementById('quizBox').style.display = 'block';
       renderQuestion();
     }
 
+    function getRank(seconds) {
+      if(seconds <= 50) return 'A+ 🏆';
+      if(seconds <= 100) return 'A 🌟';
+      if(seconds <= 150) return 'B 👍';
+      if(seconds <= 200) return 'C ⚖️';
+      return 'D 📚';
+    }
+
     function renderQuestion() {
       if(currentQIndex >= currentQuizPool.length) {
+        if(quizTimerInterval) clearInterval(quizTimerInterval);
+        
+        const finalPercent = Math.round((quizScore / currentQuizPool.length) * 100);
+        let rankHtml = quizModeChoice === 'timer' ? `<p style="font-size: 16px; margin-top: 5px;">الرانك: <strong>${getRank(secondsElapsed)}</strong> (الوقت: ${secondsElapsed} ثانية)</p>` : '';
+
         document.getElementById('quizBox').innerHTML = `
           <div class="quiz-question-box" style="text-align: center;">
-            <h2>🎉 انتهى الاختبار!</h2>
-            <p style="font-size: 18px; margin: 15px 0;">حصلت على: <strong>${quizScore} من ${currentQuizPool.length}</strong></p>
-            <button class="quiz-btn" onclick="document.getElementById('quizBox').style.display='none'">إغلاق الكويز</button>
+            <h2>🎉 انتهى الكويز!</h2>
+            <p style="font-size: 20px; margin: 15px 0;">النتيجة: <strong>${quizScore} / ${currentQuizPool.length}</strong> (${finalPercent}%)</p>
+            ${rankHtml}
+            
+            ${wrongWordsList.length > 0 ? `
+              <div style="margin-top: 25px; text-align: right;">
+                <h3>Learn More - الأخطاء والمراجعة:</h3>
+                ${wrongWordsList.map(item => `
+                  <div class="error-card">
+                    <div>
+                      <strong>${item.word}</strong> - اخترت: <span style="color: #e74c3c;">${item.chosen}</span> (الصحيح: <span style="color: #2ecc71;">${item.correct}</span>)
+                    </div>
+                    <button class="quiz-btn" style="padding: 6px 12px; margin:0;" onclick="navigateToWord('${item.word}')">انتقل للكلمة</button>
+                  </div>
+                `).join('')}
+              </div>
+            ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز! لا توجد أي أخطاء.</p>'}
+
+            <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('quizBox').style.display='none'">إغلاق الكويز</button>
           </div>
         `;
         return;
@@ -905,25 +1023,26 @@
       const q = currentQuizPool[currentQIndex];
       const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
       
-      // Get 3 wrong distractors
       let options = [q.translation];
-      let distractors = allWords.filter(w => w.translation !== q.translation);
-      distractors.sort(() => Math.random() - 0.5);
+      let distractors = allWords.filter(w => w.translation !== q.translation).sort(() => Math.random() - 0.5);
       options.push(distractors[0].translation, distractors[1].translation, distractors[2].translation);
       options.sort(() => Math.random() - 0.5);
 
       document.getElementById('quizBox').innerHTML = `
         <div class="quiz-question-box">
-          <p style="color: var(--text-muted); font-weight: bold;">سؤال ${currentQIndex + 1} من ${currentQuizPool.length}</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentQIndex + 1} من ${currentQuizPool.length}</span>
+            ${quizModeChoice === 'timer' ? `<span id="timerDisplay" style="color: var(--primary); font-weight: bold;">الوقت: ${secondsElapsed} ثانية</span>` : ''}
+          </div>
           <h3 style="font-size: 22px; margin: 10px 0;">ما هو معنى كلمة: <span style="color: var(--primary);">${q.word}</span> ؟</h3>
           ${options.map(opt => `
-            <button class="option-btn" onclick="checkAnswer(this, '${opt === q.translation}')">${opt}</button>
+            <button class="option-btn" onclick="checkAnswer(this, '${opt === q.translation}', '${opt}', '${q.translation}', '${q.word}')">${opt}</button>
           `).join('')}
         </div>
       `;
     }
 
-    function checkAnswer(btn, isCorrect) {
+    function checkAnswer(btn, isCorrect, chosen, correct, word) {
       const allBtns = document.querySelectorAll('.option-btn');
       allBtns.forEach(b => b.disabled = true);
 
@@ -932,12 +1051,149 @@
         quizScore++;
       } else {
         btn.classList.add('wrong');
+        wrongWordsList.push({ word, chosen, correct });
       }
 
       setTimeout(() => {
         currentQIndex++;
         renderQuestion();
-      }, 1200);
+      }, 1000);
+    }
+
+    /* LISTENING PRACTICE LOGIC */
+    let listenPoolChoice = 'saved';
+    let listenModeChoice = 'free';
+    let currentListenPool = [];
+    let currentLIndex = 0;
+    let listenScore = 0;
+    let listenWrongList = [];
+    let listenTimerInterval = null;
+    let listenTimeLeft = 60;
+
+    function selectListenPool(mode) {
+      listenPoolChoice = mode;
+      document.getElementById('btnListSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+      document.getElementById('btnListAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+    }
+
+    function startListeningQuiz(mode) {
+      listenModeChoice = mode;
+      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+
+      if (listenPoolChoice === 'saved') {
+        currentListenPool = allWords.filter(w => savedCheckedWords.includes(w.word));
+      } else {
+        currentListenPool = [...allWords];
+      }
+
+      if(currentListenPool.length < 2) {
+        alert("تنبيه: يلزم تحديد كلمتين على الأقل لبدء التسميع!");
+        return;
+      }
+
+      currentListenPool.sort(() => Math.random() - 0.5);
+      currentLIndex = 0;
+      listenScore = 0;
+      listenWrongList = [];
+      listenTimeLeft = 60;
+
+      if(listenTimerInterval) clearInterval(listenTimerInterval);
+
+      if(listenModeChoice === '1min') {
+        listenTimerInterval = setInterval(() => {
+          listenTimeLeft--;
+          const timerEl = document.getElementById('listenTimerDisplay');
+          if(timerEl) timerEl.innerText = `الوقت المتبقي: ${listenTimeLeft} ثانية`;
+          if(listenTimeLeft <= 0) {
+            clearInterval(listenTimerInterval);
+            finishListeningQuiz();
+          }
+        }, 1000);
+      }
+
+      document.getElementById('listeningBox').style.display = 'block';
+      renderListeningQuestion();
+    }
+
+    function renderListeningQuestion() {
+      if(currentLIndex >= currentListenPool.length) {
+        finishListeningQuiz();
+        return;
+      }
+
+      const q = currentListenPool[currentLIndex];
+      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+
+      let options = [q.translation];
+      let distractors = allWords.filter(w => w.translation !== q.translation).sort(() => Math.random() - 0.5);
+      options.push(distractors[0].translation, distractors[1].translation, distractors[2].translation);
+      options.sort(() => Math.random() - 0.5);
+
+      document.getElementById('listeningBox').innerHTML = `
+        <div class="quiz-question-box" style="text-align: center;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentLIndex + 1} من ${currentListenPool.length}</span>
+            ${listenModeChoice === '1min' ? `<span id="listenTimerDisplay" style="color: #e74c3c; font-weight: bold;">الوقت المتبقي: ${listenTimeLeft} ثانية</span>` : ''}
+          </div>
+          <h3>اضغط للاستماع واختر الترجمة:</h3>
+          <button class="quiz-btn" style="font-size: 20px; margin: 15px 0;" onclick="speakWord('${q.word}')">🔊 استمع للكلمة</button>
+          
+          <div style="text-align: right; margin-top: 10px;">
+            ${options.map(opt => `
+              <button class="option-btn" onclick="checkListeningAnswer(this, '${opt === q.translation}', '${opt}', '${q.translation}', '${q.word}')">${opt}</button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      speakWord(q.word);
+    }
+
+    function checkListeningAnswer(btn, isCorrect, chosen, correct, word) {
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if(isCorrect === 'true') {
+        btn.classList.add('correct');
+        listenScore++;
+      } else {
+        btn.classList.add('wrong');
+        listenWrongList.push({ word, chosen, correct });
+      }
+
+      setTimeout(() => {
+        currentLIndex++;
+        renderListeningQuestion();
+      }, 800);
+    }
+
+    function finishListeningQuiz() {
+      if(listenTimerInterval) clearInterval(listenTimerInterval);
+
+      const finalPercent = Math.round((listenScore / currentListenPool.length) * 100) || 0;
+
+      document.getElementById('listeningBox').innerHTML = `
+        <div class="quiz-question-box" style="text-align: center;">
+          <h2>🎉 انتهى التسميع الصوتي!</h2>
+          <p style="font-size: 20px; margin: 15px 0;">النتيجة: <strong>${listenScore} / ${currentListenPool.length}</strong> (${finalPercent}%)</p>
+          
+          ${listenWrongList.length > 0 ? `
+            <div style="margin-top: 25px; text-align: right;">
+              <h3>الأخطاء للتصحيح:</h3>
+              ${listenWrongList.map(item => `
+                <div class="error-card">
+                  <div>
+                    <strong>${item.word}</strong> - اخترت: <span style="color: #e74c3c;">${item.chosen}</span> (الصحيح: <span style="color: #2ecc71;">${item.correct}</span>)
+                  </div>
+                  <button class="quiz-btn" style="padding: 6px 12px; margin:0;" onclick="navigateToWord('${item.word}')">انتقل للكلمة</button>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز! إجاباتك الصوتية كلها صحيحة.</p>'}
+
+          <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('listeningBox').style.display='none'">إغلاق التسميع</button>
+        </div>
+      `;
     }
 
     const savedTheme = localStorage.getItem('theme') || 'light';
