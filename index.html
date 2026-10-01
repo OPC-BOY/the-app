@@ -471,6 +471,49 @@
       border-color: #e74c3c !important;
     }
 
+    .type-input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      font-size: 16px;
+      margin-top: 15px;
+      outline: none;
+    }
+
+    .type-input:focus {
+      border-color: var(--primary);
+    }
+
+    .feedback-banner {
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .feedback-correct {
+      background: #e8f8f0;
+      color: #2ecc71;
+      border: 1px solid #2ecc71;
+    }
+
+    .feedback-close {
+      background: #fff8e1;
+      color: #f39c12;
+      border: 1px solid #f39c12;
+    }
+
+    .feedback-wrong {
+      background: #fdeaea;
+      color: #e74c3c;
+      border: 1px solid #e74c3c;
+    }
+
     .error-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -561,7 +604,7 @@
     <div class="nav-section">
       <span class="section-title">PRACTICE & QUIZ</span>
       <a class="nav-item" onclick="switchTab('quizView', this)">📝 Multiple Choice Quiz</a>
-      <a class="nav-item" onclick="switchTab('listeningView', this)">🎧 Listening Practice</a>
+      <a class="nav-item" onclick="switchTab('spellingView', this)">✍️ Written Spelling Test</a>
     </div>
   </aside>
 
@@ -628,9 +671,9 @@
           <h3>📝 Multiple Choice Quiz</h3>
           <p>Ranked & Free Modes</p>
         </div>
-        <div class="card" onclick="switchTab('listeningView')">
-          <h3>🎧 Listening Practice</h3>
-          <p>Audio Quiz & 1-Min Challenge</p>
+        <div class="card" onclick="switchTab('spellingView')">
+          <h3>✍️ Written Spelling Test</h3>
+          <p>Write English Words (Spelling)</p>
         </div>
       </div>
     </div>
@@ -719,22 +762,22 @@
       <div id="quizBox" style="display: none;"></div>
     </div>
 
-    <!-- Listening Practice View -->
-    <div id="listeningView" class="view-section">
-      <h2>🎧 Listening Practice (جزء التسميع الصوتي)</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;">استمع للكلمة الإنجليزية واختر الترجمة الصحيحة فوراً.</p>
+    <!-- Written Spelling View -->
+    <div id="spellingView" class="view-section">
+      <h2>✍️ Written Spelling Test (التسميع الكتابي)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">تظهر لك المعنى بالعربي واكتب الكلمة بالإنجليزية لإتقان الإملاء.</p>
 
-      <div class="quiz-mode-card" id="listeningSetupCard">
+      <div class="quiz-mode-card" id="spellSetupCard">
         <h3>1. اختر مجموعة الكلمات:</h3>
-        <button class="quiz-btn" id="btnListSaved" onclick="selectListenPool('saved')">تسميع الكلمات المحفوظة فقط</button>
-        <button class="quiz-btn quiz-btn-secondary" id="btnListAll" onclick="selectListenPool('all')">تسميع كل الكلمات</button>
+        <button class="quiz-btn" id="btnSpellSaved" onclick="selectSpellPool('saved')">تسميع الكلمات المحفوظة فقط</button>
+        <button class="quiz-btn quiz-btn-secondary" id="btnSpellAll" onclick="selectSpellPool('all')">تسميع كل الكلمات</button>
 
         <h3 style="margin-top: 20px;">2. اختر نمط التسميع:</h3>
-        <button class="quiz-btn" onclick="startListeningQuiz('free')">تسميع مفتوح (Free)</button>
-        <button class="quiz-btn quiz-btn-secondary" onclick="startListeningQuiz('1min')">تحدي الدقيقة الواحدة ⏱️</button>
+        <button class="quiz-btn" onclick="startSpellingQuiz('free')">تسميع مفتوح (Free)</button>
+        <button class="quiz-btn quiz-btn-secondary" onclick="startSpellingQuiz('1min')">تحدي الدقيقة الواحدة ⏱️</button>
       </div>
 
-      <div id="listeningBox" style="display: none;"></div>
+      <div id="spellingBox" style="display: none;"></div>
     </div>
 
   </main>
@@ -928,6 +971,25 @@
       localStorage.setItem('theme', newTheme);
     }
 
+    /* LEVENSHTEIN DISTANCE FOR SPELLING CHECK */
+    function getEditDistance(a, b) {
+      if (a.length === 0) return b.length;
+      if (b.length === 0) return a.length;
+      const matrix = [];
+      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+          }
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
     /* MC QUIZ SYSTEM */
     let quizPoolChoice = 'saved';
     let quizModeChoice = 'free';
@@ -1060,138 +1122,155 @@
       }, 1000);
     }
 
-    /* LISTENING PRACTICE LOGIC */
-    let listenPoolChoice = 'saved';
-    let listenModeChoice = 'free';
-    let currentListenPool = [];
-    let currentLIndex = 0;
-    let listenScore = 0;
-    let listenWrongList = [];
-    let listenTimerInterval = null;
-    let listenTimeLeft = 60;
+    /* WRITTEN SPELLING LOGIC */
+    let spellPoolChoice = 'saved';
+    let spellModeChoice = 'free';
+    let currentSpellPool = [];
+    let currentSIndex = 0;
+    let spellScore = 0;
+    let spellReviewList = [];
+    let spellTimerInterval = null;
+    let spellTimeLeft = 60;
 
-    function selectListenPool(mode) {
-      listenPoolChoice = mode;
-      document.getElementById('btnListSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
-      document.getElementById('btnListAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+    function selectSpellPool(mode) {
+      spellPoolChoice = mode;
+      document.getElementById('btnSpellSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
+      document.getElementById('btnSpellAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
     }
 
-    function startListeningQuiz(mode) {
-      listenModeChoice = mode;
+    function startSpellingQuiz(mode) {
+      spellModeChoice = mode;
       const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
 
-      if (listenPoolChoice === 'saved') {
-        currentListenPool = allWords.filter(w => savedCheckedWords.includes(w.word));
+      if (spellPoolChoice === 'saved') {
+        currentSpellPool = allWords.filter(w => savedCheckedWords.includes(w.word));
       } else {
-        currentListenPool = [...allWords];
+        currentSpellPool = [...allWords];
       }
 
-      if(currentListenPool.length < 2) {
-        alert("تنبيه: يلزم تحديد كلمتين على الأقل لبدء التسميع!");
+      if(currentSpellPool.length < 1) {
+        alert("تنبيه: يلزم تحديد كلمة واحدة على الأقل لبدء التسميع!");
         return;
       }
 
-      currentListenPool.sort(() => Math.random() - 0.5);
-      currentLIndex = 0;
-      listenScore = 0;
-      listenWrongList = [];
-      listenTimeLeft = 60;
+      currentSpellPool.sort(() => Math.random() - 0.5);
+      currentSIndex = 0;
+      spellScore = 0;
+      spellReviewList = [];
+      spellTimeLeft = 60;
 
-      if(listenTimerInterval) clearInterval(listenTimerInterval);
+      if(spellTimerInterval) clearInterval(spellTimerInterval);
 
-      if(listenModeChoice === '1min') {
-        listenTimerInterval = setInterval(() => {
-          listenTimeLeft--;
-          const timerEl = document.getElementById('listenTimerDisplay');
-          if(timerEl) timerEl.innerText = `الوقت المتبقي: ${listenTimeLeft} ثانية`;
-          if(listenTimeLeft <= 0) {
-            clearInterval(listenTimerInterval);
-            finishListeningQuiz();
+      if(spellModeChoice === '1min') {
+        spellTimerInterval = setInterval(() => {
+          spellTimeLeft--;
+          const timerEl = document.getElementById('spellTimerDisplay');
+          if(timerEl) timerEl.innerText = `الوقت المتبقي: ${spellTimeLeft} ثانية`;
+          if(spellTimeLeft <= 0) {
+            clearInterval(spellTimerInterval);
+            finishSpellingQuiz();
           }
         }, 1000);
       }
 
-      document.getElementById('listeningBox').style.display = 'block';
-      renderListeningQuestion();
+      document.getElementById('spellingBox').style.display = 'block';
+      renderSpellingQuestion();
     }
 
-    function renderListeningQuestion() {
-      if(currentLIndex >= currentListenPool.length) {
-        finishListeningQuiz();
+    function renderSpellingQuestion() {
+      if(currentSIndex >= currentSpellPool.length) {
+        finishSpellingQuiz();
         return;
       }
 
-      const q = currentListenPool[currentLIndex];
-      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+      const q = currentSpellPool[currentSIndex];
 
-      let options = [q.translation];
-      let distractors = allWords.filter(w => w.translation !== q.translation).sort(() => Math.random() - 0.5);
-      options.push(distractors[0].translation, distractors[1].translation, distractors[2].translation);
-      options.sort(() => Math.random() - 0.5);
-
-      document.getElementById('listeningBox').innerHTML = `
-        <div class="quiz-question-box" style="text-align: center;">
+      document.getElementById('spellingBox').innerHTML = `
+        <div class="quiz-question-box">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentLIndex + 1} من ${currentListenPool.length}</span>
-            ${listenModeChoice === '1min' ? `<span id="listenTimerDisplay" style="color: #e74c3c; font-weight: bold;">الوقت المتبقي: ${listenTimeLeft} ثانية</span>` : ''}
+            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentSIndex + 1} من ${currentSpellPool.length}</span>
+            ${spellModeChoice === '1min' ? `<span id="spellTimerDisplay" style="color: #e74c3c; font-weight: bold;">الوقت المتبقي: ${spellTimeLeft} ثانية</span>` : ''}
           </div>
-          <h3>اضغط للاستماع واختر الترجمة:</h3>
-          <button class="quiz-btn" style="font-size: 20px; margin: 15px 0;" onclick="speakWord('${q.word}')">🔊 استمع للكلمة</button>
+          <h3 style="font-size: 20px; margin: 10px 0;">اكتب الكلمة بالإنجليزية لـ: <span style="color: var(--primary); font-size: 24px;">"${q.translation}"</span></h3>
           
-          <div style="text-align: right; margin-top: 10px;">
-            ${options.map(opt => `
-              <button class="option-btn" onclick="checkListeningAnswer(this, '${opt === q.translation}', '${opt}', '${q.translation}', '${q.word}')">${opt}</button>
-            `).join('')}
-          </div>
+          <input type="text" id="spellInput" class="type-input" placeholder="اكتب الكلمة هنا بالإنجليزية..." autocomplete="off" autocorrect="off" capitalized="off">
+          
+          <div id="feedbackBox"></div>
+
+          <button class="quiz-btn" id="btnSubmitSpell" style="width: 100%; margin-top: 15px;" onclick="submitSpellingAnswer('${q.word}')">تأكيد الإجابة</button>
         </div>
       `;
 
-      speakWord(q.word);
+      setTimeout(() => {
+        const inp = document.getElementById('spellInput');
+        if(inp) {
+          inp.focus();
+          inp.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+              submitSpellingAnswer(q.word);
+            }
+          });
+        }
+      }, 100);
     }
 
-    function checkListeningAnswer(btn, isCorrect, chosen, correct, word) {
-      const allBtns = document.querySelectorAll('.option-btn');
-      allBtns.forEach(b => b.disabled = true);
+    function submitSpellingAnswer(correctWord) {
+      const inp = document.getElementById('spellInput');
+      const feedback = document.getElementById('feedbackBox');
+      const btn = document.getElementById('btnSubmitSpell');
 
-      if(isCorrect === 'true') {
-        btn.classList.add('correct');
-        listenScore++;
+      if(!inp || btn.disabled) return;
+
+      const userTyped = inp.value.trim().toLowerCase();
+      const target = correctWord.trim().toLowerCase();
+
+      btn.disabled = true;
+      inp.disabled = true;
+
+      const dist = getEditDistance(userTyped, target);
+
+      if (userTyped === target) {
+        feedback.innerHTML = `<div class="feedback-banner feedback-correct">✅ Correct! إجابة صحيحة الممتازة.</div>`;
+        spellScore++;
+      } else if (dist <= 2 && target.length > 3) {
+        feedback.innerHTML = `<div class="feedback-banner feedback-close">⚠️ Close! إجابة قريبة جداً.<br>الإملاء الصحيح هو: <strong>${correctWord}</strong></div>`;
+        spellReviewList.push({ word: correctWord, typed: inp.value, status: 'Close' });
       } else {
-        btn.classList.add('wrong');
-        listenWrongList.push({ word, chosen, correct });
+        feedback.innerHTML = `<div class="feedback-banner feedback-wrong">❌ Wrong! الإملاء الصحيح هو: <strong>${correctWord}</strong></div>`;
+        spellReviewList.push({ word: correctWord, typed: inp.value, status: 'Wrong' });
       }
 
       setTimeout(() => {
-        currentLIndex++;
-        renderListeningQuestion();
-      }, 800);
+        currentSIndex++;
+        renderSpellingQuestion();
+      }, 1800);
     }
 
-    function finishListeningQuiz() {
-      if(listenTimerInterval) clearInterval(listenTimerInterval);
+    function finishSpellingQuiz() {
+      if(spellTimerInterval) clearInterval(spellTimerInterval);
 
-      const finalPercent = Math.round((listenScore / currentListenPool.length) * 100) || 0;
+      const finalPercent = Math.round((spellScore / currentSpellPool.length) * 100) || 0;
 
-      document.getElementById('listeningBox').innerHTML = `
+      document.getElementById('spellingBox').innerHTML = `
         <div class="quiz-question-box" style="text-align: center;">
-          <h2>🎉 انتهى التسميع الصوتي!</h2>
-          <p style="font-size: 20px; margin: 15px 0;">النتيجة: <strong>${listenScore} / ${currentListenPool.length}</strong> (${finalPercent}%)</p>
+          <h2>🎉 انتهى التسميع الكتابي!</h2>
+          <p style="font-size: 20px; margin: 15px 0;">النتيجة النهائية: <strong>${spellScore} / ${currentSpellPool.length}</strong> (${finalPercent}%)</p>
           
-          ${listenWrongList.length > 0 ? `
+          ${spellReviewList.length > 0 ? `
             <div style="margin-top: 25px; text-align: right;">
-              <h3>الأخطاء للتصحيح:</h3>
-              ${listenWrongList.map(item => `
+              <h3>مراجعة الإملاء والكلمات للتثبيت:</h3>
+              ${spellReviewList.map(item => `
                 <div class="error-card">
                   <div>
-                    <strong>${item.word}</strong> - اخترت: <span style="color: #e74c3c;">${item.chosen}</span> (الصحيح: <span style="color: #2ecc71;">${item.correct}</span>)
+                    <strong>${item.word}</strong> - كتبت: <span style="color: ${item.status === 'Close' ? '#f39c12' : '#e74c3c'};">${item.typed || '(فارغ)'}</span> (${item.status})
                   </div>
                   <button class="quiz-btn" style="padding: 6px 12px; margin:0;" onclick="navigateToWord('${item.word}')">انتقل للكلمة</button>
                 </div>
               `).join('')}
             </div>
-          ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز! إجاباتك الصوتية كلها صحيحة.</p>'}
+          ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز جداً! كل الكلمات كُتبت بإملاء صحيح 100%.</p>'}
 
-          <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('listeningBox').style.display='none'">إغلاق التسميع</button>
+          <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('spellingBox').style.display='none'">إغلاق التسميع</button>
         </div>
       `;
     }
