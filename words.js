@@ -1,197 +1,195 @@
-// words.js - الشامل الكامل لجميع قوائم الوحدة الأولى (Unit 1: Lessons 1 & 2)
 const unitsData = {
   unit1: {
-    title: "Unit 1: Lessons 1 & 2",
-    lessonTitle: "Hospital Duty & Emergency Care",
+    title: "Unit 1: Lessons 3 & 4 - Medical Emergencies & Hospital Care",
     
-    // 1. الكلمات المفتاحية (Key Vocabulary)
+    // 1. Key Vocabulary
     keyVocab: [
-      { id: 1, word: "shift", pos: "n/v", translation: "وردية عمل / تحول / يحول", isHard: false },
-      { id: 2, word: "buzz", pos: "n/v", translation: "ضجة / إثارة / يضج", isHard: false },
-      { id: 3, word: "attention", pos: "n", translation: "انتباه / اهتمام / عناية", isHard: false },
-      { id: 4, word: "victim", pos: "n", translation: "ضحية", isHard: false },
-      { id: 5, word: "administer", pos: "v", translation: "يعطي علاج / يدير / ينفذ", isHard: true },
-      { id: 6, word: "rollercoaster", pos: "n", translation: "تجربة مليئة بالتقلبات", isHard: true },
-      { id: 7, word: "collapse", pos: "n/v", translation: "ينهار / يسقط / انهيار", isHard: false },
-      { id: 8, word: "grab", pos: "v", translation: "يمسك بسرعة / يختطف", isHard: false },
-      { id: 9, word: "chest", pos: "n", translation: "صدر", isHard: false },
-      { id: 10, word: "chaos", pos: "n", translation: "فوضى", isHard: false },
-      { id: 11, word: "heartbreaking", pos: "adj", translation: "مفجع / محزن", isHard: true },
-      { id: 12, word: "consciousness", pos: "n", translation: "وعي / إدراك", isHard: true },
-      { id: 13, word: "paramedics", pos: "n", translation: "المسعفون", isHard: false },
-      { id: 14, word: "rewarding", pos: "adj", translation: "مرضٍ / مجزٍ", isHard: false },
-      { id: 15, word: "kick off", pos: "phr. v", translation: "يبدأ / يفتتح", isHard: false },
-      { id: 16, word: "pulse", pos: "n", translation: "نبض", isHard: false },
-      { id: 17, word: "medication", pos: "n", translation: "دواء / علاج", isHard: false },
-      { id: 18, word: "challenge", pos: "n/v", translation: "تحدٍ / مواجهة / يتحدى", isHard: false },
-      { id: 19, word: "colleague", pos: "n", translation: "زميل عمل", isHard: false },
-      { id: 20, word: "CPR", pos: "n", translation: "الإنعاش القلبي الرئوي", isHard: true }
+      { word: "director", pos: "n.", translation: "مدير / مخرج", isHard: false },
+      { word: "state", pos: "n./v.", translation: "حالة / ولاية / يصرح", isHard: false },
+      { word: "respond", pos: "v.", translation: "يستجيب / يرد", isHard: false },
+      { word: "panicked", pos: "adj.", translation: "مذعور / في حالة ذعر", isHard: true },
+      { word: "stitch", pos: "n./v.", translation: "غرزة خياطة / يخيط", isHard: true },
+      { word: "forehead", pos: "n.", translation: "الجبهة", isHard: false },
+      { word: "groan", pos: "v./n.", translation: "يئن / يتألم بصوت منخفض", isHard: true },
+      { word: "moan", pos: "v./n.", translation: "يئن / ينوح / يتذمر", isHard: false },
+      { word: "clutch", pos: "v./n.", translation: "يمسك بشدة / قبضة", isHard: true },
+      { word: "swallow", pos: "v.", translation: "يبتلع", isHard: false },
+      { word: "scope", pos: "n.", translation: "نطاق / مدى / مجال", isHard: true },
+      { word: "urgency", pos: "n.", translation: "إلحاح / حاجة ماسة وسريعة", isHard: true },
+      { word: "rise", pos: "v.", translation: "يرتفع / ينهض / يزيد", isHard: false },
+      { word: "experience", pos: "n./v.", translation: "خبرة / تجربة / يمر بتجربة", isHard: false },
+      { word: "gratitude", pos: "n.", translation: "امتنان / شكر", isHard: true },
+      { word: "proudly", pos: "adv.", translation: "بفخر", isHard: false },
+      { word: "prescription", pos: "n.", translation: "روشتة / وصفة طبية", isHard: true },
+      { word: "symptoms", pos: "n.", translation: "أعراض المرض", isHard: false }
     ],
 
-    // 2. الكلمات العامة (Main Vocabulary)
+    // 2. Main Vocabulary
     mainVocab: [
-      { id: 101, word: "beep", pos: "n/v", translation: "يزمر / تزمير / يصفر", isHard: false },
-      { id: 102, word: "trade", pos: "n/v", translation: "تجارة / تبادل / يتاجر", isHard: false },
-      { id: 103, word: "critical", pos: "adj", translation: "حاسم / ناقد / شديد الخطورة", isHard: true },
-      { id: 104, word: "mentally", pos: "adv", translation: "عقلياً / ذهندياً", isHard: false },
-      { id: 105, word: "progress", pos: "n/v", translation: "تقدم / تحسن / يتقدم", isHard: false },
-      { id: 106, word: "healthcare", pos: "n", translation: "الرعاية الصحية", isHard: false },
-      { id: 107, word: "patient", pos: "n/adj", translation: "مريض / صبور", isHard: false },
-      { id: 108, word: "exhausted", pos: "adj", translation: "منهك / مرهق جداً", isHard: true },
-      { id: 109, word: "safety", pos: "n", translation: "الأمان", isHard: false },
-      { id: 110, word: "chart", pos: "n/v", translation: "رسم بياني / مخطط / يخطط", isHard: false },
-      { id: 111, word: "review", pos: "n/v", translation: "مراجعة / تقييم / يراجع", isHard: false },
-      { id: 112, word: "fulfilled", pos: "adj", translation: "محقق / مستوفى", isHard: false },
-      { id: 113, word: "reflect", pos: "v", translation: "يتأمل / يعكس", isHard: false },
-      { id: 114, word: "typical", pos: "adj", translation: "نموذجي / تقليدي", isHard: false },
-      { id: 115, word: "look like", pos: "phr. v", translation: "يبدو مثل / يشبه", isHard: false },
-      { id: 116, word: "rush", pos: "n/v", translation: "يسرع / اندفاع / استعجال", isHard: false },
-      { id: 117, word: "document", pos: "n/v", translation: "مستند / وثيقة / يوثق", isHard: false },
-      { id: 118, word: "preparation", pos: "n", translation: "تحضير / إعداد", isHard: false },
-      { id: 119, word: "monitor", pos: "n/v", translation: "يراقب / شاشة / مراقب", isHard: false },
-      { id: 120, word: "severe", pos: "adj", translation: "شديد / قاسٍ / حاد", isHard: true },
-      { id: 121, word: "dizzy", pos: "adj", translation: "الشعور بفقدان التوازن أو الدوار", isHard: false },
-      { id: 122, word: "task", pos: "n", translation: "مهمة / واجب", isHard: false },
-      { id: 123, word: "surgery", pos: "n", translation: "جراحة / عملية جراحية", isHard: false },
-      { id: 124, word: "witness", pos: "v", translation: "يشهد / شاهد", isHard: false },
-      { id: 125, word: "anxiously", pos: "adv", translation: "بقلق / بترقب شديد", isHard: true },
-      { id: 126, word: "elderly", pos: "adj", translation: "مسن / كبير في السن", isHard: false },
-      { id: 127, word: "duties", pos: "n", translation: "واجبات", isHard: false },
-      { id: 128, word: "smoothly", pos: "adv", translation: "بسلاسة / بانسيابية", isHard: false },
-      { id: 129, word: "support", pos: "n/v", translation: "دعم / مساندة / يساند", isHard: false },
-      { id: 130, word: "contaminated", pos: "adj", translation: "ملوث", isHard: true },
-      { id: 131, word: "comfort", pos: "n/v", translation: "راحة / مواساة / يواسي", isHard: false },
-      { id: 132, word: "lip", pos: "n", translation: "الشفاه", isHard: false },
-      { id: 133, word: "collect", pos: "v", translation: "يجمع", isHard: false },
-      { id: 134, word: "ensure", pos: "v", translation: "يضمن / يتأكد من", isHard: false },
-      { id: 135, word: "qualities", pos: "n", translation: "صفات / خصائص / سمات", isHard: false },
-      { id: 136, word: "neighbour", pos: "n", translation: "جار", isHard: false },
-      { id: 137, word: "assist", pos: "v", translation: "يساعد", isHard: false },
-      { id: 138, word: "complain", pos: "v", translation: "يشكو / يتذمر", isHard: false },
-      { id: 139, word: "lifeguard", pos: "n", translation: "منقذ سباحة", isHard: false },
-      { id: 140, word: "emergency", pos: "n", translation: "طوارئ", isHard: false },
-      { id: 141, word: "pain", pos: "n/v", translation: "ألم / يؤلم", isHard: false },
-      { id: 142, word: "emergency call", pos: "n", translation: "مكالمة طوارئ", isHard: false }
+      { word: "relief", pos: "n.", translation: "راحة / ارتياح", isHard: false },
+      { word: "healing", pos: "n./adj.", translation: "شفاء / علاجي", isHard: false },
+      { word: "bleeding", pos: "n.", translation: "نزيف", isHard: false },
+      { word: "flexible", pos: "adj.", translation: "مرن", isHard: false },
+      { word: "sacrifice", pos: "n./v.", translation: "تضحية / يضحي", isHard: true },
+      { word: "hesitation", pos: "n.", translation: "تردد", isHard: true },
+      { word: "staff", pos: "n.", translation: "طاقم عمل / موظفين", isHard: false },
+      { word: "remind", pos: "v.", translation: "يذكر", isHard: false },
+      { word: "construction", pos: "n.", translation: "بناء / إنشاء", isHard: false },
+      { word: "instructions", pos: "n.", translation: "تعليمات", isHard: false },
+      { word: "hand", pos: "v.", translation: "يسلم / يعطي باليد", isHard: false },
+      { word: "shout", pos: "v.", translation: "يصرخ / يرفع صوته", isHard: false },
+      { word: "temperature", pos: "n.", translation: "درجة حرارة", isHard: false },
+      { word: "dedication", pos: "n.", translation: "تفانٍ / إخلاص", isHard: true },
+      { word: "compassion", pos: "n.", translation: "رحمة / شفقة / عطف", isHard: true },
+      { word: "value", pos: "n./v.", translation: "قيمة / يقدر", isHard: false },
+      { word: "antiseptic", pos: "n.", translation: "مطهر", isHard: true },
+      { word: "medication", pos: "n.", translation: "دواء / علاج دوائي", isHard: false },
+      { word: "tears", pos: "n.", translation: "دموع", isHard: false },
+      { word: "career", pos: "n.", translation: "مهنة / مشوار وظيفي", isHard: false },
+      { word: "examine", pos: "v.", translation: "يفحص / يمعن النظر", isHard: false },
+      { word: "analyze", pos: "v.", translation: "يحلل", isHard: true },
+      { word: "technician", pos: "n.", translation: "فني / تقني", isHard: true },
+      { word: "collarbone", pos: "n.", translation: "عظمة الترقوة", isHard: true },
+      { word: "wipe", pos: "v.", translation: "يمسح", isHard: false },
+      { word: "sterile", pos: "adj.", translation: "معقم / عقيم", isHard: true },
+      { word: "throat", pos: "n.", translation: "حلق / حنجرة", isHard: false },
+      { word: "clinic", pos: "n.", translation: "عيادة", isHard: false },
+      { word: "injured", pos: "adj.", translation: "مصاب / مجروح", isHard: false },
+      { word: "confident", pos: "adj.", translation: "واثق", isHard: false },
+      { word: "toddler", pos: "n.", translation: "طفل صغير يبدأ في المشي", isHard: true },
+      { word: "crash", pos: "n./v.", translation: "تصادم / حادث", isHard: false },
+      { word: "steady", pos: "adj.", translation: "ثابت / مستقر", isHard: false },
+      { word: "member", pos: "n.", translation: "عضو", isHard: false },
+      { word: "remove", pos: "v.", translation: "يزيل / يرفع / يعزل", isHard: false },
+      { word: "serious", pos: "adj.", translation: "خطير / جاد", isHard: false },
+      { word: "treatment", pos: "n.", translation: "علاج / معالجة", isHard: false },
+      { word: "miserable", pos: "adj.", translation: "بائس / تعيس", isHard: true },
+      { word: "cough", pos: "v./n.", translation: "يسعل / يكح / كحة", isHard: false },
+      { word: "teenager", pos: "n.", translation: "مراهق", isHard: false },
+      { word: "emotionally", pos: "adv.", translation: "عاطفياً", isHard: false },
+      { word: "grasp", pos: "v.", translation: "يمسك بقوة / يفهم جيداً", isHard: true },
+      { word: "condition", pos: "n.", translation: "حالة / وضع", isHard: false }
     ],
 
-    // 3. التعريفات (Definitions)
+    // 3. Definitions
     definitions: [
-      {
-        word: "shift",
-        defEn: "A set period of time that a person works (especially in hospitals, factories, etc.).",
-        defAr: "فترة زمنية محددة يعمل فيها الشخص (خاصة في المستشفيات والمصانع)."
-      },
-      {
-        word: "buzz",
-        defEn: "A feeling of excitement or energy; or the sound of many people talking or machines working.",
-        defAr: "شعور بالإثارة أو الطاقة، أو صوت حديث العديد من الأشخاص أو عمل الآلات."
-      },
-      {
-        word: "administer",
-        defEn: "To give medicine or treatment to someone.",
-        defAr: "إعطاء الدواء أو العلاج لشخص ما."
-      },
-      {
-        word: "chaos",
-        defEn: "A state of complete confusion and disorder.",
-        defAr: "حالة من الفوضى والارتباك التام."
-      },
-      {
-        word: "heartbreaking",
-        defEn: "Very sad or upsetting.",
-        defAr: "محزن أو مفجع للغاية."
-      },
-      {
-        word: "rewarding",
-        defEn: "Giving a feeling of satisfaction or pleasure because you helped someone or achieved something good.",
-        defAr: "يمنح شعوراً بالرضا أو المتعة لأنك ساعدت أحداً أو حققت شيئاً جيداً."
-      }
+      { word: "Stitch", defEn: "A piece of thread passed through fabric or skin with a needle.", defAr: "غرزة خياطة بالجراحة أو القماش." },
+      { word: "Forehead", defEn: "The part of the face above the eyebrows and below the hairline.", defAr: "الجبهة (أعلى الوجه فوق الحواجب)." },
+      { word: "Groan", defEn: "Making a deep sound of pain or discomfort.", defAr: "صوت أنين عميق يعبر عن الألم." },
+      { word: "Moan", defEn: "To make a low sound expressing pain or discomfort.", defAr: "صوت أنين منخفض بسبب الألم." },
+      { word: "Clutch", defEn: "To hold something tightly, especially because you are afraid or in pain.", defAr: "الإمساك بشيء بشدة بدافع الخوف أو الألم." },
+      { word: "Swallow", defEn: "To make food or drink go from your mouth down to your stomach.", defAr: "ابتلاع الطعام أو الشراب إلى المعدة." },
+      { word: "Scope", defEn: "The range or extent of something.", defAr: "نطاق أو مدى شيء معين." },
+      { word: "Urgency", defEn: "Need for quick action.", defAr: "الحاجة الماسة والسريعة للتصرف." },
+      { word: "Gratitude", defEn: "The feeling of being thankful.", defAr: "شعور الامتنان والشكر." }
     ],
 
-    // 4. الترادفات والتضادات (Synonyms & Antonyms)
+    // 4. Word Relations (Synonyms & Antonyms)
     wordRelations: [
       {
-        word: "buzz",
-        synonyms: ["vibration", "drone", "noise"],
-        antonyms: ["silence", "quietness"]
+        word: "groan",
+        synonyms: ["moan", "whine", "grumble"],
+        antonyms: ["cheer", "rejoice"]
       },
       {
-        word: "shift",
-        synonyms: ["change", "move", "transfer"],
-        antonyms: ["remain", "stay", "keep"]
+        word: "moan",
+        synonyms: ["groan", "whimper", "complain"],
+        antonyms: ["cheer", "praise"]
       },
       {
-        word: "administer",
-        synonyms: ["give medicine", "manage", "run"],
-        antonyms: ["neglect", "ignore", "withdraw"]
+        word: "clutch",
+        synonyms: ["grip", "grasp", "grab"],
+        antonyms: ["release", "free", "drop", "let go"]
       },
       {
-        word: "chaos",
-        synonyms: ["disorder", "confusion"],
-        antonyms: ["order", "stability", "system"]
+        word: "serious",
+        synonyms: ["dangerous", "severe"],
+        antonyms: ["unserious", "safe", "humorous"]
       },
       {
-        word: "collapse",
-        synonyms: ["fall", "break down", "crumble"],
-        antonyms: ["stand", "rise", "endure"]
+        word: "scope",
+        synonyms: ["range", "extent", "reach", "field"],
+        antonyms: ["limitation", "restriction"]
+      },
+      {
+        word: "gratitude",
+        synonyms: ["thankfulness", "appreciation"],
+        antonyms: ["thanklessness", "ungratefulness"]
+      },
+      {
+        word: "rise",
+        synonyms: ["increase", "ascend", "grow"],
+        antonyms: ["fall", "decline", "decrease"]
+      },
+      {
+        word: "steady",
+        synonyms: ["stable", "constant", "firm"],
+        antonyms: ["unsteady", "unstable", "shaky"]
+      },
+      {
+        word: "panicked",
+        synonyms: ["terrified", "fearful", "shocked"],
+        antonyms: ["calm", "relaxed"]
+      },
+      {
+        word: "respond",
+        synonyms: ["reply", "answer", "react"],
+        antonyms: ["ignore", "neglect", "overlook"]
       }
     ],
 
-    // 5. المتلازمات وحروف الجر (Collocations & Prepositions)
+    // 5. Collocations & Prepositions
     collocations: [
-      { word: "emergency operator", trans: "موظف الطوارئ / مشغل الطوارئ" },
-      { word: "buzz with", trans: "يمتلئ بـ / يزخر بـ" },
-      { word: "a severe stomach pain", trans: "ألم شديد في المعدة" },
-      { word: "move on", trans: "يمضي قدماً / يتجاوز" },
-      { word: "trade ..... for", trans: "يبادل ... بـ / يستبدل ... بـ" },
-      { word: "check on", trans: "يطمئن على / يراقب" },
-      { word: "a never-ending rollercoaster", trans: "تجربة متقلبة لا تنتهي" },
-      { word: "rely on", trans: "يعتمد على / يثق بـ" },
-      { word: "focus (concentrate) on", trans: "يركز على" },
-      { word: "reflect on", trans: "يتأمل في / يفكر ملياً في" },
-      { word: "fall down", trans: "يسقط أرضاً" },
-      { word: "rush in", trans: "يركض لداخل / يندفع لداخل" },
-      { word: "recover from", trans: "يتعافى من" },
-      { word: "related to", trans: "مرتبط بـ / متعلق بـ" },
-      { word: "regain consciousness", trans: "يستعيد وعيه" },
-      { word: "suffer from", trans: "يعاني من" }
+      { word: "give instructions", trans: "يعطي تعليمات" },
+      { word: "check medical charts", trans: "يفحص السجلات الطبية" },
+      { word: "get much worse", trans: "يزداد سوءاً" },
+      { word: "have a small cough", trans: "يعاني من سعال بسيط" },
+      { word: "make an appointment", trans: "يحجز / يحدد موعداً" },
+      { word: "make decisions", trans: "يتخذ قرارات" },
+      { word: "have a headache", trans: "يعاني من صداع" },
+      { word: "give a prescription for", trans: "يكتب وصفة طبية لـ" },
+      { word: "perform (do) operations", trans: "يجري عمليات جراحية" },
+      { word: "feel better", trans: "يشعر بتحسن" },
+      { word: "be in full", trans: "يكون مكتمل العدد" },
+      { word: "a deep cut on", trans: "جرح عميق في" },
+      { word: "run into", trans: "يصادف / يصطدم بـ" },
+      { word: "cover in", trans: "مغطى بـ" },
+      { word: "full of", trans: "ممتلئ بـ" },
+      { word: "fill with", trans: "يمتلئ بـ" }
     ],
 
-    // 6. التعبيرات والأفعال (Expressions)
+    // 6. Expressions
     expressions: [
-      { exp: "make every effort", defAr: "يبذل أقصى جهد" },
-      { exp: "have a sharp pain", defAr: "يشعر بألم حاد / يعاني من ألم شديد" },
-      { exp: "make sure", defAr: "يتأكد من" },
-      { exp: "pay attention to", defAr: "يولي اهتماماً بـ / ينتبه لـ" },
-      { exp: "do first aid", defAr: "يقدم الإسعافات الأولية" },
-      { exp: "give a reason why (for)", defAr: "يعطي سبباً لـ" },
-      { exp: "(do - perform) a task", defAr: "يؤدي مهمة" },
-      { exp: "handle emergencies", defAr: "يتعامل مع الحالات الطارئة" }
+      { exp: "a medical emergency", defAr: "حالة طبية طارئة" },
+      { exp: "emergency room (ER)", defAr: "غرفة الطوارئ" },
+      { exp: "fly open", defAr: "يفتح بسرعة / ينفتح فجأة" },
+      { exp: "come to an end", defAr: "يقترب من نهايته / ينتهي" },
+      { exp: "a construction worker", defAr: "عامل بناء" },
+      { exp: "weep with relief", defAr: "يبكي من شدة الارتياح" },
+      { exp: "take over", defAr: "يتولى / يستلم المسؤولية" },
+      { exp: "in fact", defAr: "في الحقيقة / في الواقع" },
+      { exp: "be proud of / take pride in", defAr: "يفخر بـ" },
+      { exp: "cry out", defAr: "يصرخ / يزأر" }
     ],
 
-    // 7. التعبيرات الاصطلاحية (Idioms)
+    // 7. Idioms
     idioms: [
-      { idiom: "spring into action", defAr: "ينطلق للعمل بسرعة / يتحرك فوراً" },
-      { idiom: "Teamwork makes the dream work", defAr: "التعاون سر النجاح" },
-      { idiom: "no pain, no gain", defAr: "لا نجاح بدون تعب" },
-      { idiom: "go the extra mile", defAr: "يبذل جهداً إضافياً" },
-      { idiom: "sweat blood", defAr: "يبذل جهداً بالغاً" },
-      { idiom: "hit the ground running", defAr: "يبدأ العمل بحماس ونشاط" },
-      { idiom: "burn the midnight oil", defAr: "يسهر للعمل حتى وقت متأخر" }
+      { idiom: "rain cats and dogs", defAr: "تمطر بغزارة شديدة" },
+      { idiom: "soaked to the skin", defAr: "مبتل تماماً من رأسها حتى أخمص قدميه" },
+      { idiom: "jump into action", defAr: "يبدأ العمل بسرعة وبحماس" },
+      { idiom: "pale as a ghost", defAr: "شاحب جداً (من الخوف أو المرض)" },
+      { idiom: "calm under pressure", defAr: "هادئ ومتمسك تحت الضغط والمواقف الصعبة" },
+      { idiom: "calm slowly returned", defAr: "يعود الهدوء تدريجياً" },
+      { idiom: "under the weather", defAr: "يشعر بالتوعك أو بمرض خفيف" }
     ],
 
-    // 8. المشتقات والفروق اللغوية (Derivatives & Language Notes)
+    // 8. Derivatives & Notes
     derivativesNotes: [
-      { item: "prepare / preparation / preparatory", detail: "Verb / Noun / Adjective (يعد / إعداد / تحضيري)" },
-      { item: "attend / attention / attentive", detail: "Verb / Noun / Adjective (يحضر / انتباه / منتبه)" },
-      { item: "collapse / collapse / collapsible", detail: "Verb / Noun / Adjective (ينهار / انهيار / قابل للطي)" },
-      { item: "administer / administration / administrative", detail: "Verb / Noun / Adjective (يدير / إدارة / إداري)" },
-      { item: "consciousness vs. conscience", detail: "Consciousness = الوعي والإدراك | Conscience = الضمير الأخلاقي" },
-      { item: "patient vs. patience", detail: "Patient = مريض أو صبور (Adj/N) | Patience = الصبر (Noun)" },
-      { item: "exhausted vs. exhausting", detail: "Exhausted = مُرهَق (شخص) | Exhausting = مُرهِق (شيء أو عمل)" },
-      { item: "award / reward / rewarding / a ward", detail: "Award (جائزة رسمية) | Reward (مكافأة) | Rewarding (مجزي) | Ward (عنبر مستشفى)" },
-      { item: "surgery / surgeon / surgical", detail: "Surgery (جراحة) | Surgeon (جراح) | Surgical (جراحي)" },
-      { item: "do vs. make", detail: "Do: first aid, research, a task | Make: effort, decision, sure" }
+      { item: "Groan vs Moan", detail: "كلاهما أنين بسبب الألم، لكن Groan صوت أنين أعمق وأعلى، وMoan أنين منخفض قد يعبر عن التشكي أيضاً." },
+      { item: "Clutch vs Grasp", detail: "Clutch الإمساك بشدة بدافع الخوف أو الألم، أما Grasp فيعني الإمساك بقوة أو فهم الفكرة جيداً." },
+      { item: "Rise vs Raise", detail: "Rise (فعل لازم) يرتفع أو يشرق بدون مفعول به، بينما Raise (فعل متعدٍ) يرفع شيئاً أو يجمع تبرعات ويحتاج مفعولاً." },
+      { item: "Scope vs Range", detail: "Scope يشير لنطاق ومجال العمل أو الدراسة، أما Range فيشير لمدى التفاوت أو المسافة." },
+      { item: "Experience (n./v.)", detail: "تأتي اسم غير معدود بمعنى (خبرة عملية)، واسم معدود بمعنى (تجربة حياتية)، وفعل بمعنى (يمر بتجربة)." }
     ]
   }
 };
