@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +48,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
@@ -57,7 +57,6 @@
       color: var(--text-dark);
       display: flex;
       min-height: 100vh;
-      position: relative;
     }
 
     /* Sidebar */
@@ -68,7 +67,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      border-right: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       height: 100vh;
@@ -86,7 +85,7 @@
       width: 40px;
       height: 40px;
       background: var(--primary);
-      color: #000;
+      color: #fff;
       font-weight: 700;
       font-size: 20px;
       border-radius: 12px;
@@ -106,15 +105,1147 @@
       color: var(--text-muted);
     }
 
-    .unit-select {
+    .nav-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
       width: 100%;
-      padding: 10px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Search Box */
+    .search-container {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 16px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
       background: var(--bg-card);
       color: var(--text-dark);
-      font-size: 14px;
       outline: none;
+      font-size: 14px;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-top: 5px;
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 2000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .search-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-item:hover {
+      background: var(--primary-light);
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Banner */
+    .banner {
+      background: var(--banner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--banner-text);
+      padding: 32px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .banner-info span {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+
+    .banner-info h1 {
+      font-size: 26px;
+      margin: 8px 0;
+    }
+
+    .banner-info p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .progress-circle {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      border: 6px solid var(--border-color);
+      border-top-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--progress-text);
+      background: var(--bg-card);
+      flex-shrink: 0;
+    }
+
+    /* Views */
+    .view-section {
+      display: none;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+    }
+
+    details.group-details {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    details.group-details summary {
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .group-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      font-weight: 600;
+    }
+
+    .group-content {
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .vocab-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .vocab-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-green { background-color: #2ecc71; }
+    .dot-red { background-color: #e74c3c; }
+
+    .syn-word-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .syn-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .syn-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .relations-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .rel-box {
+      flex: 1;
+      min-width: 250px;
+      padding: 20px;
+      border-radius: 16px;
+      border: 2px solid;
+    }
+
+    .syn-box { background: var(--synonym-bg); border-color: var(--synonym-border); color: var(--synonym-text); }
+    .ant-box { background: var(--antonym-bg); border-color: var(--antonym-border); color: var(--antonym-text); }
+
+    .item-list-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .item-list-card h4 { color: var(--primary); font-size: 16px; margin-bottom: 6px; }
+    .item-list-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+
+    /* Written Spelling Test */
+    .quiz-mode-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-btn {
+      padding: 12px 20px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: 8px;
+    }
+
+    .quiz-btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .quiz-question-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .type-input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      font-size: 18px;
+      margin-top: 15px;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .type-input:focus { border-color: var(--primary); }
+
+    .feedback-banner {
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .feedback-correct { background: #e8f8f0; color: #2ecc71; border: 1px solid #2ecc71; }
+    .feedback-close { background: #fff8e1; color: #f39c12; border: 1px solid #f39c12; }
+    .feedback-wrong { background: #fdeaea; color: #e74c3c; border: 1px solid #e74c3c; }
+
+    .error-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-right: 4px solid #e74c3c;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { position: fixed; right: -100%; width: 260px; transition: right 0.3s ease; }
+      .sidebar.open { right: 0; }
+      .main-content { padding: 16px; }
+      .banner { flex-direction: column; align-items: flex-start; }
+      .top-bar { flex-wrap: wrap; }
+      .search-container { max-width: 100%; order: 3; flex-basis: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">V</div>
+      <div class="brand-text">
+        <h2>Vocals Home</h2>
+        <p>English Study Space</p>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <span class="section-title">الأقسام الرئيسية</span>
+      <a class="nav-item active" onclick="switchTab('overview', this)">لوحة التحكم (Dashboard)</a>
+      <a class="nav-item" onclick="switchTab('keyVoc', this)">الكلمات الرئيسية (Key Vocab)</a>
+      <a class="nav-item" onclick="switchTab('mainVoc', this)">الكلمات العامة (Main Vocab)</a>
+      <a class="nav-item" onclick="switchTab('definitions', this)">التعريفات (Definitions)</a>
+      <a class="nav-item" onclick="switchTab('synonyms', this)">المرادفات والتضادات</a>
+    </div>
+
+    <div class="nav-section">
+      <span class="section-title">القواعد والتعبيرات</span>
+      <a class="nav-item" onclick="switchTab('collocations', this)">المتلازمات وحروف الجر</a>
+      <a class="nav-item" onclick="switchTab('expressions', this)">التعبيرات (Expressions)</a>
+      <a class="nav-item" onclick="switchTab('idioms', this)">المصطلحات (Idioms)</a>
+      <a class="nav-item" onclick="switchTab('derivatives', this)">المشتقات والملحوظات</a>
+    </div>
+
+    <div class="nav-section">
+      <span class="section-title">التسميع والاختبار</span>
+      <a class="nav-item" onclick="switchTab('spellingView', this)">✍️ التسميع الكتابي (Spelling Test)</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="top-bar">
+      <button class="icon-btn" onclick="toggleSidebar()">☰</button>
+      
+      <!-- Search Input -->
+      <div class="search-container">
+        <input type="text" id="globalSearch" class="search-input" placeholder="🔍 ابحث عن أي كلمة..." oninput="handleSearch(this.value)">
+        <div id="searchResults" class="search-results"></div>
+      </div>
+
+      <button class="icon-btn" onclick="toggleDarkMode()">🌓</button>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <div class="banner-info">
+        <span>الدرس الحالي</span>
+        <h1>Medical Emergencies & Hospital Care</h1>
+        <p>مساحة دراسية متكاملة لحفظ الكلمات والتسميع الكتابي التفاعلي.</p>
+      </div>
+      <div class="progress-circle" id="overallProgress">0%</div>
+    </div>
+
+    <!-- Overview -->
+    <div id="overview" class="view-section active">
+      <h2>لوحة المتابعة للوحدة</h2>
+      <br>
+      <div class="cards-grid">
+        <div class="card" onclick="switchTab('keyVoc')">
+          <h3>★ الكلمات الرئيسية</h3>
+          <p>كلمات الدروس 3 و 4 الأساسية</p>
+        </div>
+        <div class="card" onclick="switchTab('mainVoc')">
+          <h3>A الكلمات العامة</h3>
+          <p>حصيلة المفردات الشاملة</p>
+        </div>
+        <div class="card" onclick="switchTab('spellingView')">
+          <h3>✍️ التسميع الكتابي</h3>
+          <p>تسميع الكلمات كتابة بالإملاء</p>
+        </div>
+        <div class="card" onclick="switchTab('definitions')">
+          <h3>📖 التعريفات</h3>
+          <p>التعريفات بالإنجليزية والعربية</p>
+        </div>
+        <div class="card" onclick="switchTab('synonyms')">
+          <h3>⇄ المرادفات والتضادات</h3>
+          <p>العلاقات اللفظية للكلمات</p>
+        </div>
+        <div class="card" onclick="switchTab('collocations')">
+          <h3>🔗 المتلازمات اللفظية</h3>
+          <p>المتلازمات وحروف الجر</p>
+        </div>
+        <div class="card" onclick="switchTab('expressions')">
+          <h3>💬 التعبيرات</h3>
+          <p>التعبيرات الطبية الشائعة</p>
+        </div>
+        <div class="card" onclick="switchTab('idioms')">
+          <h3>💡 Idioms</h3>
+          <p>المصطلحات والتعبير عن المعنى</p>
+        </div>
+        <div class="card" onclick="switchTab('derivatives')">
+          <h3>📝 ملحوظات فروق الكلمات</h3>
+          <p>الفروق اللغوية والملاحظات</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Vocabulary -->
+    <div id="keyVoc" class="view-section">
+      <h2>الكلمات الرئيسية (Key Vocabulary)</h2>
+      <br>
+      <div id="keyVocContainer"></div>
+    </div>
+
+    <!-- Main Vocabulary -->
+    <div id="mainVoc" class="view-section">
+      <h2>الكلمات العامة (Main Vocabulary)</h2>
+      <br>
+      <div id="mainVocContainer"></div>
+    </div>
+
+    <!-- Definitions -->
+    <div id="definitions" class="view-section">
+      <h2>التعريفات الطبية (Definitions)</h2>
+      <br>
+      <div id="definitionsContainer"></div>
+    </div>
+
+    <!-- Synonyms & Antonyms -->
+    <div id="synonyms" class="view-section">
+      <h2>المرادفات والتضادات (Synonyms & Antonyms)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 15px;">اضغط على الكلمة لعرض مرادفاتها وعكسها:</p>
+      <div class="syn-word-list" id="synButtons"></div>
+      <div class="relations-container" id="relationsDisplay" style="display: none;">
+        <div class="rel-box syn-box">
+          <h3>🟢 Synonyms (المرادفات)</h3>
+          <ul id="synList" style="padding-right: 20px;"></ul>
+        </div>
+        <div class="rel-box ant-box">
+          <h3>🔴 Antonyms (التضادات)</h3>
+          <ul id="antList" style="padding-right: 20px;"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collocations -->
+    <div id="collocations" class="view-section">
+      <h2>المتلازمات وحروف الجر (Collocations)</h2>
+      <br>
+      <div id="collocationsContainer"></div>
+    </div>
+
+    <!-- Expressions -->
+    <div id="expressions" class="view-section">
+      <h2>التعبيرات (Expressions)</h2>
+      <br>
+      <div id="expressionsContainer"></div>
+    </div>
+
+    <!-- Idioms -->
+    <div id="idioms" class="view-section">
+      <h2>المصطلحات (Idioms)</h2>
+      <br>
+      <div id="idiomsContainer"></div>
+    </div>
+
+    <!-- Derivatives -->
+    <div id="derivatives" class="view-section">
+      <h2>فروق الكلمات والمشتقات (Notes)</h2>
+      <br>
+      <div id="derivativesContainer"></div>
+    </div>
+
+    <!-- Written Spelling View -->
+    <div id="spellingView" class="view-section">
+      <h2>✍️ التسميع الكتابي التفاعلي (Spelling Test)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">يظهر لك المعنى بالعربي المكتوب وتكتب الكلمة بالإنجليزية لإتقان الإملاء بالكامل.</p>
+
+      <div class="quiz-mode-card" id="spellSetupCard">
+        <h3>1. اختر مجموعة الكلمات:</h3>
+        <button class="quiz-btn" id="btnSpellSaved" onclick="selectSpellPool('saved')">تسميع الكلمات المحفوظة فقط</button>
+        <button class="quiz-btn quiz-btn-secondary" id="btnSpellAll" onclick="selectSpellPool('all')">تسميع كل كلمات الوحدة</button>
+
+        <h3 style="margin-top: 20px;">2. اختر نمط التسميع:</h3>
+        <button class="quiz-btn" onclick="startSpellingQuiz('free')">تسميع مفتوح (Free)</button>
+        <button class="quiz-btn quiz-btn-secondary" onclick="startSpellingQuiz('1min')">تحدي الدقيقة الواحدة ⏱️</button>
+      </div>
+
+      <div id="spellingBox" style="display: none;"></div>
+    </div>
+
+  </main>
+
+  <script>
+    const unitsData = {
+      unit1: {
+        title: "Unit 1: Lessons 3 & 4 - Medical Emergencies & Hospital Care",
+        
+        keyVocab: [
+          { word: "director", pos: "n.", translation: "مدير / مخرج", isHard: false },
+          { word: "state", pos: "n./v.", translation: "حالة / ولاية / يصرح / يذكر", isHard: false },
+          { word: "respond", pos: "v.", translation: "يستجيب / يرد", isHard: false },
+          { word: "panicked", pos: "adj.", translation: "مذعور / في حالة ذعر", isHard: true },
+          { word: "stitch", pos: "n./v.", translation: "غرزة خياطة / ألم مفاجئ / يخيط", isHard: true },
+          { word: "forehead", pos: "n.", translation: "الجبهة", isHard: false },
+          { word: "groan", pos: "v./n.", translation: "يئن / يتألم بصوت منخفض / أنين", isHard: true },
+          { word: "moan", pos: "v./n.", translation: "يئن / ينوح / يتذمر / شكوى", isHard: false },
+          { word: "clutch", pos: "v./n.", translation: "يمسك بشدة / قبضة", isHard: true },
+          { word: "swallow", pos: "v.", translation: "يبتلع / يتقبل شيئاً صعباً", isHard: false },
+          { word: "scope", pos: "n.", translation: "نطاق / مدى / مجال", isHard: true },
+          { word: "urgency", pos: "n.", translation: "إلحاح / حاجة ماسة وسريعة", isHard: true },
+          { word: "rise", pos: "v.", translation: "يرتفع / ينهض / يزيد / تشرق", isHard: false },
+          { word: "experience", pos: "n./v.", translation: "خبرة / تجربة / يمر بتجربة", isHard: false },
+          { word: "gratitude", pos: "n.", translation: "امتنان / شكر", isHard: true },
+          { word: "proudly", pos: "adv.", translation: "بفخر", isHard: false },
+          { word: "prescription", pos: "n.", translation: "روشتة / وصفة طبية", isHard: true },
+          { word: "symptoms", pos: "n.", translation: "أعراض المرض", isHard: false }
+        ],
+
+        mainVocab: [
+          { word: "relief", pos: "n.", translation: "راحة / ارتياح", isHard: false },
+          { word: "healing", pos: "n./adj.", translation: "شفاء / علاجي", isHard: false },
+          { word: "bleeding", pos: "n.", translation: "نزيف", isHard: false },
+          { word: "flexible", pos: "adj.", translation: "مرن", isHard: false },
+          { word: "sacrifice", pos: "n./v.", translation: "تضحية / يضحي", isHard: true },
+          { word: "hesitation", pos: "n.", translation: "تردد", isHard: true },
+          { word: "staff", pos: "n.", translation: "طاقم عمل / موظفين / فريق العمل", isHard: false },
+          { word: "remind", pos: "v.", translation: "يذكر", isHard: false },
+          { word: "construction", pos: "n.", translation: "بناء / إنشاء", isHard: false },
+          { word: "instructions", pos: "n.", translation: "تعليمات", isHard: false },
+          { word: "hand", pos: "v.", translation: "يسلم / يعطي باليد", isHard: false },
+          { word: "shout", pos: "v.", translation: "يصرخ / يرفع صوته", isHard: false },
+          { word: "temperature", pos: "n.", translation: "درجة حرارة", isHard: false },
+          { word: "dedication", pos: "n.", translation: "تفانٍ / إخلاص", isHard: true },
+          { word: "compassion", pos: "n.", translation: "رحمة / شفقة / عطف", isHard: true },
+          { word: "value", pos: "n./v.", translation: "قيمة / يقدر", isHard: false },
+          { word: "antiseptic", pos: "n.", translation: "مطهر", isHard: true },
+          { word: "medication", pos: "n.", translation: "دواء / علاج دوائي", isHard: false },
+          { word: "tears", pos: "n.", translation: "دموع", isHard: false },
+          { word: "career", pos: "n.", translation: "مهنة / مشوار وظيفي", isHard: false },
+          { word: "examine", pos: "v.", translation: "يفحص / يمعن النظر", isHard: false },
+          { word: "analyze", pos: "v.", translation: "يحلل", isHard: true },
+          { word: "technician", pos: "n.", translation: "فني / تقني", isHard: true },
+          { word: "collarbone", pos: "n.", translation: "عظمة الترقوة", isHard: true },
+          { word: "wipe", pos: "v.", translation: "يمسح", isHard: false },
+          { word: "sterile", pos: "adj.", translation: "معقم / عقيم / غير منتج", isHard: true },
+          { word: "throat", pos: "n.", translation: "حلق", isHard: false },
+          { word: "clinic", pos: "n.", translation: "عيادة", isHard: false },
+          { word: "injured", pos: "adj.", translation: "مصاب / مجروح", isHard: false },
+          { word: "confident", pos: "adj.", translation: "واثق", isHard: false },
+          { word: "toddler", pos: "n.", translation: "طفل صغير يبدأ في المشي", isHard: true },
+          { word: "crash", pos: "n./v.", translation: "تصادم / حادث", isHard: false },
+          { word: "steady", pos: "adj.", translation: "ثابت / مستقر", isHard: false },
+          { word: "member", pos: "n.", translation: "عضو", isHard: false },
+          { word: "remove", pos: "v.", translation: "يزيل / يرفع / يعزل", isHard: false },
+          { word: "serious", pos: "adj.", translation: "خطير / جاد", isHard: false },
+          { word: "treatment", pos: "n.", translation: "علاج / معالجة", isHard: false },
+          { word: "miserable", pos: "adj.", translation: "بائس", isHard: true },
+          { word: "cough", pos: "v./n.", translation: "يسعل / يكح / كحة", isHard: false },
+          { word: "teenager", pos: "n.", translation: "مراهق", isHard: false },
+          { word: "emotionally", pos: "adv.", translation: "عاطفياً", isHard: false },
+          { word: "grasp", pos: "v.", translation: "يمسك بقوة / يفهم جيداً", isHard: true },
+          { word: "condition", pos: "n.", translation: "حالة / وضع", isHard: false }
+        ],
+
+        definitions: [
+          { word: "stitch", defEn: "a piece of thread passed through fabric with a needle", defAr: "غرزة خياطة بالجراحة أو القماش." },
+          { word: "forehead", defEn: "the part of the face above the eyebrows and below the hairline", defAr: "الجبهة (أعلى الوجه فوق الحواجب)." },
+          { word: "groan", defEn: "making a deep sound of pain or discomfort", defAr: "صوت أنين عميق يعبر عن الألم." },
+          { word: "moan", defEn: "to make a low sound expressing pain or discomfort", defAr: "صوت أنين منخفض بسبب الألم." },
+          { word: "clutch", defEn: "to hold something tightly, especially because you are afraid or in pain", defAr: "الإمساك بشيء بشدة بدافع الخوف أو الألم." },
+          { word: "swallow", defEn: "to make food or drink go from your mouth down to your stomach", defAr: "ابتلاع الطعام أو الشراب إلى المعدة." },
+          { word: "scope", defEn: "the range or extent of something", defAr: "نطاق أو مدى شيء معين." },
+          { word: "urgency", defEn: "need for quick action", defAr: "الحاجة الماسة والسريعة للتصرف." },
+          { word: "rise", defEn: "move upward / increase in amount or level", defAr: "الارتفاع أو التزايد أو الشروق." },
+          { word: "experience", defEn: "practical knowledge gained from doing or seeing things", defAr: "خبرة عملية مكتسبة أو تجربة." },
+          { word: "gratitude", defEn: "the feeling of being thankful", defAr: "شعور الامتنان والشكر." }
+        ],
+
+        wordRelations: [
+          { word: "groan", synonyms: ["moan", "whine", "grumble"], antonyms: ["cheer", "rejoice"] },
+          { word: "moan", synonyms: ["groan", "whimper", "complain"], antonyms: ["cheer", "praise"] },
+          { word: "clutch", synonyms: ["grip", "grasp", "grab"], antonyms: ["release", "free", "drop", "let go"] },
+          { word: "serious", synonyms: ["dangerous", "severe"], antonyms: ["unserious", "safe", "humorous"] },
+          { word: "scope", synonyms: ["range", "extent", "reach", "field"], antonyms: ["limitation", "restriction"] },
+          { word: "gratitude", synonyms: ["thankfulness", "appreciation"], antonyms: ["thanklessness", "ungratefulness"] },
+          { word: "rise", synonyms: ["increase", "ascend", "grow"], antonyms: ["fall", "decline", "decrease"] },
+          { word: "steady", synonyms: ["stable", "constant", "firm"], antonyms: ["unsteady", "unstable", "shaky"] },
+          { word: "panicked", synonyms: ["terrified", "fearful", "shocked"], antonyms: ["calm", "relaxed"] },
+          { word: "respond", synonyms: ["reply", "answer", "react"], antonyms: ["ignore", "neglect", "overlook"] }
+        ],
+
+        collocations: [
+          { word: "give instructions", trans: "يعطي تعليمات" },
+          { word: "check medical charts", trans: "يفحص السجلات الطبية" },
+          { word: "get much worse", trans: "يزداد سوءاً" },
+          { word: "have a small cough", trans: "يعاني من سعال بسيط" },
+          { word: "make an appointment", trans: "يحجز موعداً / يحدد موعداً" },
+          { word: "make decisions", trans: "يتخذ قرارات" },
+          { word: "have a headache", trans: "يعاني من صداع" },
+          { word: "give a prescription for", trans: "يكتب وصفة طبية لـ" },
+          { word: "perform (do) operations", trans: "يجري عمليات" },
+          { word: "feel better", trans: "يشعر بتحسن" },
+          { word: "be in full", trans: "يكون ممتلئاً / مكتمل العدد" },
+          { word: "a deep cut on", trans: "جرح عميق في" },
+          { word: "run into", trans: "صادف / يصطدم بـ" },
+          { word: "cover in", trans: "غطى بـ" },
+          { word: "full of", trans: "ممتلئ بـ" },
+          { word: "fill with", trans: "ملأ بـ" }
+        ],
+
+        expressions: [
+          { exp: "a medical emergency", defAr: "حالة طبية طارئة" },
+          { exp: "emergency room (ER)", defAr: "غرفة الطوارئ" },
+          { exp: "fly open", defAr: "يفتح بسرعة / يفتح فجأة" },
+          { exp: "come to an end", defAr: "يقترب من نهايته / ينتهي" },
+          { exp: "a construction worker", defAr: "عامل بناء" },
+          { exp: "weep with relief", defAr: "بكى من شدة الارتياح / يبكي شكراً" },
+          { exp: "take over", defAr: "تولى المسؤولية / يستلم المسؤولية" },
+          { exp: "in fact", defAr: "في الحقيقة / في الواقع" },
+          { exp: "be proud of (to) = take pride in", defAr: "يفخر بـ" },
+          { exp: "cry out", defAr: "صرخ / يزأر" }
+        ],
+
+        idioms: [
+          { idiom: "rain cats and dogs", defAr: "تمطر بغزارة" },
+          { idiom: "soaked to the skin", defAr: "مبتل تماماً" },
+          { idiom: "jump into action", defAr: "يبدأ العمل بسرعة وبحماس" },
+          { idiom: "pale as a ghost", defAr: "شاحب جداً (غالباً بسبب خوف أو صدمة أو مرض)" },
+          { idiom: "calm under pressure", defAr: "هادئ تحت الضغط / متماسك في المواقف الصعبة" },
+          { idiom: "calm slowly returned", defAr: "يعود الهدوء تدريجياً" },
+          { idiom: "under the weather", defAr: "يشعر بالتوعك / يعاني من مرض خفيف" }
+        ],
+
+        derivativesNotes: [
+          { item: "Groan vs Moan", detail: "groan تعني يئن أو يتألم بصوت منخفض، وmoan تعني يئن أو ينوح أو يتذمر." },
+          { item: "Clutch vs Grasp", detail: "clutch الإمساك بشدة بدافع الخوف أو الألم، بينما grasp تعني يمسك بقوة أو يفهم جيداً." },
+          { item: "Rise (v.)", detail: "يرتفع / ينهض / يزيد / تشرق (فعل لازم لا يحتاج مفعولاً به)." },
+          { item: "Scope (n.)", detail: "نطاق / مدى / مجال التجربة أو العمل." },
+          { item: "Experience (n./v.)", detail: "تستخدم كاسم لـ (خبرة أو تجربة) وفعل لـ (يمر بتجربة)." }
+        ]
+      }
+    };
+
+    let savedCheckedWords = JSON.parse(localStorage.getItem('savedWordsList')) || [];
+
+    function chunkArray(array, chunkSize) {
+      const results = [];
+      for (let i = 0; i < array.length; i += chunkSize) {
+        results.push(array.slice(i, i + chunkSize));
+      }
+      return results;
+    }
+
+    function loadData() {
+      const currentUnit = unitsData.unit1;
+
+      // Key Vocab
+      const keyGroups = chunkArray(currentUnit.keyVocab, 6);
+      document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => {
+        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
+        return `
+          <details class="group-details" id="group-key-${idx}">
+            <summary>
+              <span>المجموعة ${idx + 1}</span>
+              <span class="group-badge">تم حفظ ${savedInGroup}/${group.length}</span>
+            </summary>
+            <div class="group-content">
+              ${group.map(v => `
+                <div class="vocab-card" id="card-${v.word}">
+                  <div class="vocab-info">
+                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                    <div>
+                      <strong>${v.word}</strong> <small style="direction:ltr; display:inline-block;">(${v.pos})</small>
+                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
+
+      // Main Vocab
+      const mainGroups = chunkArray(currentUnit.mainVocab, 6);
+      document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => {
+        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
+        return `
+          <details class="group-details" id="group-main-${idx}">
+            <summary>
+              <span>المجموعة ${idx + 1}</span>
+              <span class="group-badge">تم حفظ ${savedInGroup}/${group.length}</span>
+            </summary>
+            <div class="group-content">
+              ${group.map(v => `
+                <div class="vocab-card" id="card-${v.word}">
+                  <div class="vocab-info">
+                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
+                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
+                    <div>
+                      <strong>${v.word}</strong> <small style="direction:ltr; display:inline-block;">(${v.pos})</small>
+                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
+
+      // Definitions
+      document.getElementById('definitionsContainer').innerHTML = currentUnit.definitions.map(d => `
+        <div class="item-list-card">
+          <h4>${d.word}</h4>
+          <p><strong>EN:</strong> ${d.defEn}</p>
+          <p><strong>AR:</strong> ${d.defAr}</p>
+        </div>
+      `).join('');
+
+      // Synonyms
+      document.getElementById('synButtons').innerHTML = currentUnit.wordRelations.map((rel, idx) => `
+        <button class="syn-btn" onclick="showRelations(${idx}, this)">${rel.word}</button>
+      `).join('');
+
+      // Collocations
+      document.getElementById('collocationsContainer').innerHTML = currentUnit.collocations.map(c => `
+        <div class="vocab-card">
+          <div>
+            <strong>${c.word}</strong>
+            <div style="color: var(--text-muted); font-size: 13px;">${c.trans}</div>
+          </div>
+        </div>
+      `).join('');
+
+      // Expressions
+      document.getElementById('expressionsContainer').innerHTML = currentUnit.expressions.map(e => `
+        <div class="item-list-card">
+          <h4>${e.exp}</h4>
+          <p>${e.defAr}</p>
+        </div>
+      `).join('');
+
+      // Idioms
+      document.getElementById('idiomsContainer').innerHTML = currentUnit.idioms.map(i => `
+        <div class="item-list-card">
+          <h4>${i.idiom}</h4>
+          <p>${i.defAr}</p>
+        </div>
+      `).join('');
+
+      // Derivatives
+      document.getElementById('derivativesContainer').innerHTML = currentUnit.derivativesNotes.map(dn => `
+        <div class="item-list-card">
+          <h4>${dn.item}</h4>
+          <p>${dn.detail}</p>
+        </div>
+      `).join('');
+
+      updateProgress();
+    }
+
+    function toggleWordSaved(word, cb) {
+      if(cb.checked) {
+        if(!savedCheckedWords.includes(word)) savedCheckedWords.push(word);
+      } else {
+        savedCheckedWords = savedCheckedWords.filter(w => w !== word);
+      }
+      localStorage.setItem('savedWordsList', JSON.stringify(savedCheckedWords));
+      loadData();
+    }
+
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+
+      if(element) {
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+      }
+
+      if(window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    }
+
+    /* SEARCH LOGIC */
+    function handleSearch(query) {
+      const resultsContainer = document.getElementById('searchResults');
+      if (!query.trim()) {
+        resultsContainer.style.display = 'none';
+        return;
+      }
+
+      const q = query.toLowerCase();
+      const currentUnit = unitsData.unit1;
+      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
+
+      const matches = allWords.filter(w => 
+        w.word.toLowerCase().includes(q) || w.translation.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `<div class="search-item">لا توجد نتائج مطابقة</div>`;
+      } else {
+        resultsContainer.innerHTML = matches.map(w => `
+          <div class="search-item" onclick="selectSearchResult('${w.word}')">
+            <strong>${w.word}</strong>
+            <span style="color: var(--text-muted); font-size: 13px;">${w.translation}</span>
+          </div>
+        `).join('');
+      }
+
+      resultsContainer.style.display = 'block';
+    }
+
+    function selectSearchResult(word) {
+      document.getElementById('searchResults').style.display = 'none';
+      document.getElementById('globalSearch').value = '';
+      navigateToWord(word);
+    }
+
+    function navigateToWord(word) {
+      const currentUnit = unitsData.unit1;
+      const isKey = currentUnit.keyVocab.some(v => v.word === word);
+      switchTab(isKey ? 'keyVoc' : 'mainVoc');
+
+      setTimeout(() => {
+        const el = document.getElementById(`card-${word}`);
+        if(el) {
+          const parentDetails = el.closest('details');
+          if (parentDetails) parentDetails.open = true;
+
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.border = '2px solid var(--primary)';
+          el.style.boxShadow = '0 0 10px var(--primary)';
+          setTimeout(() => {
+            el.style.border = '1px solid var(--border-color)';
+            el.style.boxShadow = 'none';
+          }, 2500);
+        }
+      }, 300);
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function showRelations(index, btn) {
+      document.querySelectorAll('.syn-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const data = unitsData.unit1.wordRelations[index];
+      document.getElementById('relationsDisplay').style.display = 'flex';
+
+      document.getElementById('synList').innerHTML = data.synonyms.map(s => `<li><strong>${s}</strong></li>`).join('');
+      document.getElementById('antList').innerHTML = data.antonyms.map(a => `<li><strong>${a}</strong></li>`).join('');
+    }
+
+    function updateProgress() {
+      const currentUnit = unitsData.unit1;
+      const totalWords = currentUnit.keyVocab.length + currentUnit.mainVocab.length;
+      const percent = Math.round((savedCheckedWords.length / totalWords) * 100) || 0;
+      document.getElementById('overallProgress').innerText = percent + '%';
+    }
+
+    function toggleDarkMode() {
+      const htmlEle = document.documentElement;
+      const currentTheme = htmlEle.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEle.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    /* LEVENSHTEIN DISTANCE */
+    function getEditDistance(a, b) {
+      if (a.length === 0) return b.length;
+      if (b.length === 0) return a.length;
+      const matrix = [];
+      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+تم تعديل كود الـ HTML وتحديث البرمجة لمعالجة المشكلتين بالكامل:
+
+1. **إصلاح تايمر تحدي الدقيقة الواحدة:** أصبح التايمر عند الوصول للثانية 0 يُنهي الاختبار فوراً تلقائياً وينقلك لصفحة النتيجة وحساب النقاط، مع إيقاف أي إدخال إضافي.
+2. **إضافة خانة البحث السريع (Search Bar):** تم إضافتها في أعلى القائمة الجانبية (Sidebar)؛ بمجرد كتابة أي كلمة بالإنجليزية أو العربية والضغط عليها، ينقلك الملف فوراً إلى قسم الكلمة ويقوم بفتح المجموعة وتسليط الضوء (Highlight) عليها.
+
+إليك الكود المحدث بالكامل الموزع على أجزاء نظيفة لتسهيل النسخ:
+
+### الجزء الأول: الهيكل والتصميم (HTML & CSS)
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocals Home - English Study Space</title>
+  <link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap)" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f5f7fb;
+      --bg-card: #ffffff;
+      --primary: #6c47ff;
+      --primary-light: #f0ebff;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --banner-bg: linear-gradient(135deg, #6c47ff 0%, #4f22ef 100%);
+      --banner-text: #ffffff;
+      --progress-text: #6c47ff;
+      --synonym-bg: #e8f8f0;
+      --synonym-border: #2ecc71;
+      --synonym-text: #1e7e34;
+      --antonym-bg: #fdeaea;
+      --antonym-border: #e74c3c;
+      --antonym-text: #a94442;
+    }
+
+    [data-theme="dark"] {
+      --bg-main: #0a0a0a;
+      --bg-card: #141414;
+      --primary: #f59e0b;
+      --primary-light: rgba(245, 158, 11, 0.15);
+      --text-dark: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border-color: #334155;
+      --banner-bg: linear-gradient(135deg, #1f1c10 0%, #141414 100%);
+      --banner-text: #f59e0b;
+      --progress-text: #f59e0b;
+      --synonym-bg: #112a1d;
+      --synonym-border: #27ae60;
+      --synonym-text: #2ecc71;
+      --antonym-bg: #2d1515;
+      --antonym-border: #c0392b;
+      --antonym-text: #e74c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-left: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-text h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Search Input Styling */
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-main);
+      color: var(--text-dark);
+      font-size: 13px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-results {
+      position: absolute;
+      top: 105%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 100;
+      display: none;
+    }
+
+    .search-item {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-item:hover {
+      background: var(--primary-light);
+      color: var(--primary);
     }
 
     .nav-section {
@@ -168,11 +1299,6 @@
       color: var(--text-muted);
     }
 
-    .actions {
-      display: flex;
-      gap: 8px;
-    }
-
     .icon-btn {
       width: 36px;
       height: 36px;
@@ -184,10 +1310,6 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-    }
-
-    .menu-toggle {
-      display: none;
     }
 
     /* Banner */
@@ -207,17 +1329,17 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
-      color: var(--primary);
+      opacity: 0.9;
     }
 
     .banner-info h1 {
-      font-size: 28px;
+      font-size: 26px;
       margin: 8px 0;
     }
 
     .banner-info p {
       font-size: 14px;
-      color: var(--text-muted);
+      opacity: 0.8;
     }
 
     .progress-circle {
@@ -247,7 +1369,7 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
     }
 
@@ -266,7 +1388,6 @@
       border-color: var(--primary);
     }
 
-    /* Collapsible Details */
     details.group-details {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -286,11 +1407,6 @@
       justify-content: space-between;
       align-items: center;
       user-select: none;
-      background: var(--bg-card);
-    }
-
-    details.group-details summary::-webkit-details-marker {
-      display: none;
     }
 
     .group-badge {
@@ -317,7 +1433,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 8px;
-      gap: 10px;
+      transition: all 0.3s ease;
     }
 
     .vocab-info {
@@ -330,9 +1446,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      flex-shrink: 0;
     }
-
     .dot-green { background-color: #2ecc71; }
     .dot-red { background-color: #e74c3c; }
 
@@ -373,17 +1487,8 @@
       border: 2px solid;
     }
 
-    .syn-box {
-      background: var(--synonym-bg);
-      border-color: var(--synonym-border);
-      color: var(--synonym-text);
-    }
-
-    .ant-box {
-      background: var(--antonym-bg);
-      border-color: var(--antonym-border);
-      color: var(--antonym-text);
-    }
+    .syn-box { background: var(--synonym-bg); border-color: var(--synonym-border); color: var(--synonym-text); }
+    .ant-box { background: var(--antonym-bg); border-color: var(--antonym-border); color: var(--antonym-text); }
 
     .item-list-card {
       background: var(--bg-card);
@@ -393,19 +1498,10 @@
       margin-bottom: 12px;
     }
 
-    .item-list-card h4 {
-      color: var(--primary);
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
+    .item-list-card h4 { color: var(--primary); font-size: 16px; margin-bottom: 6px; }
+    .item-list-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
-    .item-list-card p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Practice & Quiz */
+    /* Written Spelling Test */
     .quiz-mode-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -417,13 +1513,13 @@
     .quiz-btn {
       padding: 12px 20px;
       background: var(--primary);
-      color: #000;
+      color: #fff;
       font-weight: 700;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       margin-top: 10px;
-      margin-right: 8px;
+      margin-left: 8px;
     }
 
     .quiz-btn-secondary {
@@ -440,37 +1536,6 @@
       margin-top: 20px;
     }
 
-    .option-btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      background: var(--bg-card);
-      color: var(--text-dark);
-      text-align: left;
-      font-size: 15px;
-      margin-top: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .option-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .option-btn.correct {
-      background: #2ecc71 !important;
-      color: #fff !important;
-      border-color: #2ecc71 !important;
-    }
-
-    .option-btn.wrong {
-      background: #e74c3c !important;
-      color: #fff !important;
-      border-color: #e74c3c !important;
-    }
-
     .type-input {
       width: 100%;
       padding: 14px;
@@ -478,14 +1543,14 @@
       border: 2px solid var(--border-color);
       background: var(--bg-card);
       color: var(--text-dark);
-      font-size: 16px;
+      font-size: 18px;
       margin-top: 15px;
       outline: none;
+      direction: ltr;
+      text-align: left;
     }
 
-    .type-input:focus {
-      border-color: var(--primary);
-    }
+    .type-input:focus { border-color: var(--primary); }
 
     .feedback-banner {
       padding: 14px;
@@ -496,23 +1561,9 @@
       font-size: 16px;
     }
 
-    .feedback-correct {
-      background: #e8f8f0;
-      color: #2ecc71;
-      border: 1px solid #2ecc71;
-    }
-
-    .feedback-close {
-      background: #fff8e1;
-      color: #f39c12;
-      border: 1px solid #f39c12;
-    }
-
-    .feedback-wrong {
-      background: #fdeaea;
-      color: #e74c3c;
-      border: 1px solid #e74c3c;
-    }
+    .feedback-correct { background: #e8f8f0; color: #2ecc71; border: 1px solid #2ecc71; }
+    .feedback-close { background: #fff8e1; color: #f39c12; border: 1px solid #f39c12; }
+    .feedback-wrong { background: #fdeaea; color: #e74c3c; border: 1px solid #e74c3c; }
 
     .error-card {
       background: var(--bg-card);
@@ -527,44 +1578,11 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        position: fixed;
-        left: -100%;
-        top: 0;
-        width: 260px;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-      }
-
-      .sidebar.open {
-        left: 0;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .main-content {
-        padding: 16px;
-      }
-
-      .banner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-      }
-
-      .banner-info h1 {
-        font-size: 22px;
-      }
-
-      .progress-circle {
-        align-self: flex-end;
-      }
+      body { flex-direction: column; }
+      .sidebar { position: fixed; right: -100%; width: 260px; transition: right 0.3s ease; }
+      .sidebar.open { right: 0; }
+      .main-content { padding: 16px; }
+      .banner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -580,31 +1598,32 @@
       </div>
     </div>
 
-    <select class="unit-select" id="unitSelect">
-      <option value="unit1">Unit 1: Lessons 1 & 2</option>
-    </select>
-
-    <div class="nav-section">
-      <span class="section-title">MAIN SECTIONS</span>
-      <a class="nav-item active" onclick="switchTab('overview', this)">Dashboard</a>
-      <a class="nav-item" onclick="switchTab('keyVoc', this)">Key Vocabulary</a>
-      <a class="nav-item" onclick="switchTab('mainVoc', this)">Main Vocabulary</a>
-      <a class="nav-item" onclick="switchTab('definitions', this)">Definitions</a>
-      <a class="nav-item" onclick="switchTab('synonyms', this)">Synonyms & Antonyms</a>
+    <!-- Live Search Component -->
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 ابحث عن كلمة..." oninput="handleSearch(this.value)">
+      <div id="searchResults" class="search-results"></div>
     </div>
 
     <div class="nav-section">
-      <span class="section-title">LANGUAGE FEATURES</span>
-      <a class="nav-item" onclick="switchTab('collocations', this)">Collocations & Prep</a>
-      <a class="nav-item" onclick="switchTab('expressions', this)">Expressions</a>
-      <a class="nav-item" onclick="switchTab('idioms', this)">Idioms</a>
-      <a class="nav-item" onclick="switchTab('derivatives', this)">Derivatives & Notes</a>
+      <span class="section-title">الأقسام الرئيسية</span>
+      <a class="nav-item active" onclick="switchTab('overview', this)">لوحة التحكم (Dashboard)</a>
+      <a class="nav-item" onclick="switchTab('keyVoc', this)">الكلمات الرئيسية (Key Vocab)</a>
+      <a class="nav-item" onclick="switchTab('mainVoc', this)">الكلمات العامة (Main Vocab)</a>
+      <a class="nav-item" onclick="switchTab('definitions', this)">التعريفات (Definitions)</a>
+      <a class="nav-item" onclick="switchTab('synonyms', this)">المرادفات والتضادات</a>
     </div>
 
     <div class="nav-section">
-      <span class="section-title">PRACTICE & QUIZ</span>
-      <a class="nav-item" onclick="switchTab('quizView', this)">📝 Multiple Choice Quiz</a>
-      <a class="nav-item" onclick="switchTab('spellingView', this)">✍️ Written Spelling Test</a>
+      <span class="section-title">القواعد والتعبيرات</span>
+      <a class="nav-item" onclick="switchTab('collocations', this)">المتلازمات وحروف الجر</a>
+      <a class="nav-item" onclick="switchTab('expressions', this)">التعبيرات (Expressions)</a>
+      <a class="nav-item" onclick="switchTab('idioms', this)">المصطلحات (Idioms)</a>
+      <a class="nav-item" onclick="switchTab('derivatives', this)">المشتقات والملحوظات</a>
+    </div>
+
+    <div class="nav-section">
+      <span class="section-title">التسميع والاختبار</span>
+      <a class="nav-item" onclick="switchTab('spellingView', this)">✍️️ التسميع الكتابي (Spelling Test)</a>
     </div>
   </aside>
 
@@ -612,97 +1631,91 @@
   <main class="main-content">
     <div class="top-bar">
       <div style="display: flex; align-items: center; gap: 10px;">
-        <button class="icon-btn menu-toggle" onclick="toggleSidebar()">☰</button>
-        <span>Unit 1 / Lessons 1–2</span>
+        <button class="icon-btn" onclick="toggleSidebar()">☰</button>
+        <span>Unit 1 / Lessons 3–4</span>
       </div>
-      <div class="actions">
-        <button class="icon-btn" onclick="toggleDarkMode()">🌓</button>
-      </div>
+      <button class="icon-btn" onclick="toggleDarkMode()">🌓</button>
     </div>
 
     <!-- Banner -->
     <div class="banner">
       <div class="banner-info">
-        <span>CURRENT LESSON</span>
-        <h1>Hospital Duty & Emergency Care</h1>
-        <p>A focused study space for vocabulary, language features and practice.</p>
+        <span>الدرس الحالي</span>
+        <h1>Medical Emergencies & Hospital Care</h1>
+        <p>مساحة دراسية متكاملة لحفظ الكلمات والتسميع الكتابي التفاعلي.</p>
       </div>
       <div class="progress-circle" id="overallProgress">0%</div>
     </div>
 
     <!-- Overview -->
     <div id="overview" class="view-section active">
-      <h2>Lesson Dashboard</h2>
+      <h2>لوحة المتابعة للوحدة</h2>
       <br>
       <div class="cards-grid">
         <div class="card" onclick="switchTab('keyVoc')">
-          <h3>★ Key Vocabulary</h3>
-          <p>20 Words (6 per group)</p>
+          <h3>★ الكلمات الرئيسية</h3>
+          <p>كلمات الدروس 3 و 4 الأساسية</p>
         </div>
         <div class="card" onclick="switchTab('mainVoc')">
-          <h3>A Main Vocabulary</h3>
-          <p>42 Words (6 per group)</p>
+          <h3>A الكلمات العامة</h3>
+          <p>حصيلة المفردات الشاملة</p>
+        </div>
+        <div class="card" onclick="switchTab('spellingView')">
+          <h3>✍️ التسميع الكتابي</h3>
+          <p>تسميع الكلمات كتابة بالإملاء</p>
         </div>
         <div class="card" onclick="switchTab('definitions')">
-          <h3>📖 Definitions</h3>
-          <p>6 Core Definitions</p>
+          <h3>📖 التعريفات</h3>
+          <p>التعريفات بالإنجليزية والعربية</p>
         </div>
         <div class="card" onclick="switchTab('synonyms')">
-          <h3>⇄ Synonyms & Antonyms</h3>
-          <p>Interactive Relations</p>
+          <h3>⇄ المرادفات والتضادات</h3>
+          <p>العلاقات اللفظية للكلمات</p>
         </div>
         <div class="card" onclick="switchTab('collocations')">
-          <h3>🔗 Collocations & Prep</h3>
-          <p>16 Phrases</p>
+          <h3>🔗 المتلازمات اللفظية</h3>
+          <p>المتلازمات وحروف الجر</p>
         </div>
         <div class="card" onclick="switchTab('expressions')">
-          <h3>💬 Expressions</h3>
-          <p>8 Phrases</p>
+          <h3>💬 التعبيرات</h3>
+          <p>التعبيرات الطبية الشائعة</p>
         </div>
         <div class="card" onclick="switchTab('idioms')">
           <h3>💡 Idioms</h3>
-          <p>7 Idioms</p>
+          <p>المصطلحات والتعبير عن المعنى</p>
         </div>
         <div class="card" onclick="switchTab('derivatives')">
-          <h3>📝 Derivatives & Notes</h3>
-          <p>10 Language Notes</p>
-        </div>
-        <div class="card" onclick="switchTab('quizView')">
-          <h3>📝 Multiple Choice Quiz</h3>
-          <p>Ranked & Free Modes</p>
-        </div>
-        <div class="card" onclick="switchTab('spellingView')">
-          <h3>✍️ Written Spelling Test</h3>
-          <p>Write English Words (Spelling)</p>
+          <h3>📝 ملحوظات فروق الكلمات</h3>
+          <p>الفروق اللغوية والملاحظات</p>
         </div>
       </div>
     </div>
 
     <!-- Key Vocabulary -->
     <div id="keyVoc" class="view-section">
-      <h2>Key Vocabulary (6 Words per Group)</h2>
+      <h2>الكلمات الرئيسية (Key Vocabulary)</h2>
       <br>
       <div id="keyVocContainer"></div>
     </div>
 
     <!-- Main Vocabulary -->
     <div id="mainVoc" class="view-section">
-      <h2>Main Vocabulary (6 Words per Group)</h2>
+      <h2>الكلمات العامة (Main Vocabulary)</h2>
       <br>
       <div id="mainVocContainer"></div>
     </div>
 
     <!-- Definitions -->
     <div id="definitions" class="view-section">
-      <h2>Definitions</h2>
+      <h2>التعريفات الطبية (Definitions)</h2>
       <br>
       <div id="definitionsContainer"></div>
     </div>
 
     <!-- Synonyms & Antonyms -->
     <div id="synonyms" class="view-section">
-      <h2>Synonyms & Antonyms</h2>
-      <p style="color: var(--text-muted); margin-bottom: 15px;">اختر الكلمة لعرض المرادفات والتضادات الخاصّة بها:</p>
+      <h2>المرادفات والتضادات (Synonyms & Antonyms)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 15px;">اضغط على الكلمة لعرض مرادفاتها وعكسها:</p>
       <div class="syn-word-list" id="synButtons"></div>
       <div class="relations-container" id="relationsDisplay" style="display: none;">
         <div class="rel-box syn-box">
@@ -718,59 +1731,41 @@
 
     <!-- Collocations -->
     <div id="collocations" class="view-section">
-      <h2>Collocations & Prepositions</h2>
+      <h2>المتلازمات وحروف الجر (Collocations)</h2>
       <br>
       <div id="collocationsContainer"></div>
     </div>
 
     <!-- Expressions -->
     <div id="expressions" class="view-section">
-      <h2>Expressions</h2>
+      <h2>التعبيرات (Expressions)</h2>
       <br>
       <div id="expressionsContainer"></div>
     </div>
 
     <!-- Idioms -->
     <div id="idioms" class="view-section">
-      <h2>Idioms</h2>
+      <h2>المصطلحات (Idioms)</h2>
       <br>
       <div id="idiomsContainer"></div>
     </div>
 
     <!-- Derivatives -->
     <div id="derivatives" class="view-section">
-      <h2>Derivatives & Language Notes</h2>
+      <h2>فروق الكلمات والمشتقات (Notes)</h2>
       <br>
       <div id="derivativesContainer"></div>
     </div>
 
-    <!-- Quiz View -->
-    <div id="quizView" class="view-section">
-      <h2>Multiple Choice Quiz</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;">اختبر حفظك اختر نوع الكلمات المحددة والنمط المناسب لك.</p>
-
-      <div class="quiz-mode-card" id="quizSetupCard">
-        <h3>1. اختر نوع الكلمات:</h3>
-        <button class="quiz-btn" id="btnPoolSaved" onclick="selectPool('saved')">الكلمات المحفوظة فقط</button>
-        <button class="quiz-btn quiz-btn-secondary" id="btnPoolAll" onclick="selectPool('all')">جميع الكلمات</button>
-
-        <h3 style="margin-top: 20px;">2. اختر نمط الكويز:</h3>
-        <button class="quiz-btn" onclick="startSelectedQuiz('free')">المود المفتوح (Free Mode)</button>
-        <button class="quiz-btn quiz-btn-secondary" onclick="startSelectedQuiz('timer')">مود التايمر والرانك (Timer Mode)</button>
-      </div>
-
-      <div id="quizBox" style="display: none;"></div>
-    </div>
-
     <!-- Written Spelling View -->
     <div id="spellingView" class="view-section">
-      <h2>✍️ Written Spelling Test (التسميع الكتابي)</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;">تظهر لك المعنى بالعربي واكتب الكلمة بالإنجليزية لإتقان الإملاء.</p>
+      <h2>✍️ التسميع الكتابي التفاعلي (Spelling Test)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">يظهر لك المعنى بالعربي المكتوب وتكتب الكلمة بالإنجليزية لإتقان الإملاء بالكامل.</p>
 
       <div class="quiz-mode-card" id="spellSetupCard">
         <h3>1. اختر مجموعة الكلمات:</h3>
         <button class="quiz-btn" id="btnSpellSaved" onclick="selectSpellPool('saved')">تسميع الكلمات المحفوظة فقط</button>
-        <button class="quiz-btn quiz-btn-secondary" id="btnSpellAll" onclick="selectSpellPool('all')">تسميع كل الكلمات</button>
+        <button class="quiz-btn quiz-btn-secondary" id="btnSpellAll" onclick="selectSpellPool('all')">تسميع كل كلمات الوحدة</button>
 
         <h3 style="margin-top: 20px;">2. اختر نمط التسميع:</h3>
         <button class="quiz-btn" onclick="startSpellingQuiz('free')">تسميع مفتوح (Free)</button>
@@ -781,503 +1776,3 @@
     </div>
 
   </main>
-
-  <script src="words.js"></script>
-  <script>
-    const currentUnit = unitsData.unit1;
-    let savedCheckedWords = JSON.parse(localStorage.getItem('savedWordsList')) || [];
-
-    function chunkArray(array, chunkSize) {
-      const results = [];
-      for (let i = 0; i < array.length; i += chunkSize) {
-        results.push(array.slice(i, i + chunkSize));
-      }
-      return results;
-    }
-
-    function loadData() {
-      // Key Vocab
-      const keyGroups = chunkArray(currentUnit.keyVocab, 6);
-      document.getElementById('keyVocContainer').innerHTML = keyGroups.map((group, idx) => {
-        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
-        return `
-          <details class="group-details">
-            <summary>
-              <span>Group ${idx + 1}</span>
-              <span class="group-badge">Completed ${savedInGroup}/${group.length}</span>
-            </summary>
-            <div class="group-content">
-              ${group.map(v => `
-                <div class="vocab-card" id="card-${v.word}">
-                  <div class="vocab-info">
-                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
-                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                    <div>
-                      <strong>${v.word}</strong> <small>(${v.pos})</small>
-                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
-                    </div>
-                  </div>
-                  <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-                </div>
-              `).join('')}
-            </div>
-          </details>
-        `;
-      }).join('');
-
-      // Main Vocab
-      const mainGroups = chunkArray(currentUnit.mainVocab, 6);
-      document.getElementById('mainVocContainer').innerHTML = mainGroups.map((group, idx) => {
-        const savedInGroup = group.filter(v => savedCheckedWords.includes(v.word)).length;
-        return `
-          <details class="group-details">
-            <summary>
-              <span>Group ${idx + 1}</span>
-              <span class="group-badge">Completed ${savedInGroup}/${group.length}</span>
-            </summary>
-            <div class="group-content">
-              ${group.map(v => `
-                <div class="vocab-card" id="card-${v.word}">
-                  <div class="vocab-info">
-                    <input type="checkbox" data-word="${v.word}" ${savedCheckedWords.includes(v.word) ? 'checked' : ''} onchange="toggleWordSaved('${v.word}', this)">
-                    <span class="dot ${v.isHard ? 'dot-red' : 'dot-green'}"></span>
-                    <div>
-                      <strong>${v.word}</strong> <small>(${v.pos})</small>
-                      <div style="color: var(--text-muted); font-size: 13px;">${v.translation}</div>
-                    </div>
-                  </div>
-                  <button class="icon-btn" onclick="speakWord('${v.word}')">🔊</button>
-                </div>
-              `).join('')}
-            </div>
-          </details>
-        `;
-      }).join('');
-
-      document.getElementById('definitionsContainer').innerHTML = currentUnit.definitions.map(d => `
-        <div class="item-list-card">
-          <h4>${d.word}</h4>
-          <p><strong>EN:</strong> ${d.defEn}</p>
-          <p><strong>AR:</strong> ${d.defAr}</p>
-        </div>
-      `).join('');
-
-      document.getElementById('synButtons').innerHTML = currentUnit.wordRelations.map((rel, idx) => `
-        <button class="syn-btn" onclick="showRelations(${idx}, this)">${rel.word}</button>
-      `).join('');
-
-      document.getElementById('collocationsContainer').innerHTML = currentUnit.collocations.map(c => `
-        <div class="vocab-card">
-          <div>
-            <strong>${c.word}</strong>
-            <div style="color: var(--text-muted); font-size: 13px;">${c.trans}</div>
-          </div>
-          <button class="icon-btn" onclick="speakWord('${c.word}')">🔊</button>
-        </div>
-      `).join('');
-
-      document.getElementById('expressionsContainer').innerHTML = currentUnit.expressions.map(e => `
-        <div class="item-list-card">
-          <h4>${e.exp}</h4>
-          <p>${e.defAr}</p>
-        </div>
-      `).join('');
-
-      document.getElementById('idiomsContainer').innerHTML = currentUnit.idioms.map(i => `
-        <div class="item-list-card">
-          <h4>${i.idiom}</h4>
-          <p>${i.defAr}</p>
-        </div>
-      `).join('');
-
-      document.getElementById('derivativesContainer').innerHTML = currentUnit.derivativesNotes.map(dn => `
-        <div class="item-list-card">
-          <h4>${dn.item}</h4>
-          <p>${dn.detail}</p>
-        </div>
-      `).join('');
-
-      updateProgress();
-    }
-
-    function toggleWordSaved(word, cb) {
-      if(cb.checked) {
-        if(!savedCheckedWords.includes(word)) savedCheckedWords.push(word);
-      } else {
-        savedCheckedWords = savedCheckedWords.filter(w => w !== word);
-      }
-      localStorage.setItem('savedWordsList', JSON.stringify(savedCheckedWords));
-      loadData();
-    }
-
-    function switchTab(tabId, element) {
-      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-
-      if(element) {
-        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
-      }
-
-      if(window.innerWidth <= 768) {
-        document.getElementById('sidebar').classList.remove('open');
-      }
-    }
-
-    function navigateToWord(word) {
-      const isKey = currentUnit.keyVocab.some(v => v.word === word);
-      switchTab(isKey ? 'keyVoc' : 'mainVoc');
-      setTimeout(() => {
-        const el = document.getElementById(`card-${word}`);
-        if(el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          el.style.border = '2px solid var(--primary)';
-        }
-      }, 300);
-    }
-
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
-
-    function showRelations(index, btn) {
-      document.querySelectorAll('.syn-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const data = currentUnit.wordRelations[index];
-      document.getElementById('relationsDisplay').style.display = 'flex';
-
-      document.getElementById('synList').innerHTML = data.synonyms.map(s => `<li><strong>${s}</strong></li>`).join('');
-      document.getElementById('antList').innerHTML = data.antonyms.map(a => `<li><strong>${a}</strong></li>`).join('');
-    }
-
-    function speakWord(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function updateProgress() {
-      const totalWords = currentUnit.keyVocab.length + currentUnit.mainVocab.length;
-      const percent = Math.round((savedCheckedWords.length / totalWords) * 100) || 0;
-      document.getElementById('overallProgress').innerText = percent + '%';
-    }
-
-    function toggleDarkMode() {
-      const htmlEle = document.documentElement;
-      const currentTheme = htmlEle.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      htmlEle.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    }
-
-    /* LEVENSHTEIN DISTANCE FOR SPELLING CHECK */
-    function getEditDistance(a, b) {
-      if (a.length === 0) return b.length;
-      if (b.length === 0) return a.length;
-      const matrix = [];
-      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          if (b.charAt(i - 1) === a.charAt(j - 1)) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-          }
-        }
-      }
-      return matrix[b.length][a.length];
-    }
-
-    /* MC QUIZ SYSTEM */
-    let quizPoolChoice = 'saved';
-    let quizModeChoice = 'free';
-    let currentQuizPool = [];
-    let currentQIndex = 0;
-    let quizScore = 0;
-    let wrongWordsList = [];
-    let quizTimerInterval = null;
-    let secondsElapsed = 0;
-
-    function selectPool(mode) {
-      quizPoolChoice = mode;
-      document.getElementById('btnPoolSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
-      document.getElementById('btnPoolAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
-    }
-
-    function startSelectedQuiz(mode) {
-      quizModeChoice = mode;
-      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
-      
-      if (quizPoolChoice === 'saved') {
-        currentQuizPool = allWords.filter(w => savedCheckedWords.includes(w.word));
-      } else {
-        currentQuizPool = [...allWords];
-      }
-
-      if(currentQuizPool.length < 2) {
-        alert("تنبيه: يلزم تحديد كلمتين على الأقل لبدء الكويز!");
-        return;
-      }
-
-      currentQuizPool.sort(() => Math.random() - 0.5);
-      currentQIndex = 0;
-      quizScore = 0;
-      wrongWordsList = [];
-      secondsElapsed = 0;
-
-      if(quizTimerInterval) clearInterval(quizTimerInterval);
-
-      if(quizModeChoice === 'timer') {
-        quizTimerInterval = setInterval(() => {
-          secondsElapsed++;
-          const timerEl = document.getElementById('timerDisplay');
-          if(timerEl) timerEl.innerText = `الوقت: ${secondsElapsed} ثانية`;
-        }, 1000);
-      }
-
-      document.getElementById('quizBox').style.display = 'block';
-      renderQuestion();
-    }
-
-    function getRank(seconds) {
-      if(seconds <= 50) return 'A+ 🏆';
-      if(seconds <= 100) return 'A 🌟';
-      if(seconds <= 150) return 'B 👍';
-      if(seconds <= 200) return 'C ⚖️';
-      return 'D 📚';
-    }
-
-    function renderQuestion() {
-      if(currentQIndex >= currentQuizPool.length) {
-        if(quizTimerInterval) clearInterval(quizTimerInterval);
-        
-        const finalPercent = Math.round((quizScore / currentQuizPool.length) * 100);
-        let rankHtml = quizModeChoice === 'timer' ? `<p style="font-size: 16px; margin-top: 5px;">الرانك: <strong>${getRank(secondsElapsed)}</strong> (الوقت: ${secondsElapsed} ثانية)</p>` : '';
-
-        document.getElementById('quizBox').innerHTML = `
-          <div class="quiz-question-box" style="text-align: center;">
-            <h2>🎉 انتهى الكويز!</h2>
-            <p style="font-size: 20px; margin: 15px 0;">النتيجة: <strong>${quizScore} / ${currentQuizPool.length}</strong> (${finalPercent}%)</p>
-            ${rankHtml}
-            
-            ${wrongWordsList.length > 0 ? `
-              <div style="margin-top: 25px; text-align: right;">
-                <h3>Learn More - الأخطاء والمراجعة:</h3>
-                ${wrongWordsList.map(item => `
-                  <div class="error-card">
-                    <div>
-                      <strong>${item.word}</strong> - اخترت: <span style="color: #e74c3c;">${item.chosen}</span> (الصحيح: <span style="color: #2ecc71;">${item.correct}</span>)
-                    </div>
-                    <button class="quiz-btn" style="padding: 6px 12px; margin:0;" onclick="navigateToWord('${item.word}')">انتقل للكلمة</button>
-                  </div>
-                `).join('')}
-              </div>
-            ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز! لا توجد أي أخطاء.</p>'}
-
-            <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('quizBox').style.display='none'">إغلاق الكويز</button>
-          </div>
-        `;
-        return;
-      }
-
-      const q = currentQuizPool[currentQIndex];
-      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
-      
-      let options = [q.translation];
-      let distractors = allWords.filter(w => w.translation !== q.translation).sort(() => Math.random() - 0.5);
-      options.push(distractors[0].translation, distractors[1].translation, distractors[2].translation);
-      options.sort(() => Math.random() - 0.5);
-
-      document.getElementById('quizBox').innerHTML = `
-        <div class="quiz-question-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentQIndex + 1} من ${currentQuizPool.length}</span>
-            ${quizModeChoice === 'timer' ? `<span id="timerDisplay" style="color: var(--primary); font-weight: bold;">الوقت: ${secondsElapsed} ثانية</span>` : ''}
-          </div>
-          <h3 style="font-size: 22px; margin: 10px 0;">ما هو معنى كلمة: <span style="color: var(--primary);">${q.word}</span> ؟</h3>
-          ${options.map(opt => `
-            <button class="option-btn" onclick="checkAnswer(this, '${opt === q.translation}', '${opt}', '${q.translation}', '${q.word}')">${opt}</button>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    function checkAnswer(btn, isCorrect, chosen, correct, word) {
-      const allBtns = document.querySelectorAll('.option-btn');
-      allBtns.forEach(b => b.disabled = true);
-
-      if(isCorrect === 'true') {
-        btn.classList.add('correct');
-        quizScore++;
-      } else {
-        btn.classList.add('wrong');
-        wrongWordsList.push({ word, chosen, correct });
-      }
-
-      setTimeout(() => {
-        currentQIndex++;
-        renderQuestion();
-      }, 1000);
-    }
-
-    /* WRITTEN SPELLING LOGIC */
-    let spellPoolChoice = 'saved';
-    let spellModeChoice = 'free';
-    let currentSpellPool = [];
-    let currentSIndex = 0;
-    let spellScore = 0;
-    let spellReviewList = [];
-    let spellTimerInterval = null;
-    let spellTimeLeft = 60;
-
-    function selectSpellPool(mode) {
-      spellPoolChoice = mode;
-      document.getElementById('btnSpellSaved').className = mode === 'saved' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
-      document.getElementById('btnSpellAll').className = mode === 'all' ? 'quiz-btn' : 'quiz-btn quiz-btn-secondary';
-    }
-
-    function startSpellingQuiz(mode) {
-      spellModeChoice = mode;
-      const allWords = [...currentUnit.keyVocab, ...currentUnit.mainVocab];
-
-      if (spellPoolChoice === 'saved') {
-        currentSpellPool = allWords.filter(w => savedCheckedWords.includes(w.word));
-      } else {
-        currentSpellPool = [...allWords];
-      }
-
-      if(currentSpellPool.length < 1) {
-        alert("تنبيه: يلزم تحديد كلمة واحدة على الأقل لبدء التسميع!");
-        return;
-      }
-
-      currentSpellPool.sort(() => Math.random() - 0.5);
-      currentSIndex = 0;
-      spellScore = 0;
-      spellReviewList = [];
-      spellTimeLeft = 60;
-
-      if(spellTimerInterval) clearInterval(spellTimerInterval);
-
-      if(spellModeChoice === '1min') {
-        spellTimerInterval = setInterval(() => {
-          spellTimeLeft--;
-          const timerEl = document.getElementById('spellTimerDisplay');
-          if(timerEl) timerEl.innerText = `الوقت المتبقي: ${spellTimeLeft} ثانية`;
-          if(spellTimeLeft <= 0) {
-            clearInterval(spellTimerInterval);
-            finishSpellingQuiz();
-          }
-        }, 1000);
-      }
-
-      document.getElementById('spellingBox').style.display = 'block';
-      renderSpellingQuestion();
-    }
-
-    function renderSpellingQuestion() {
-      if(currentSIndex >= currentSpellPool.length) {
-        finishSpellingQuiz();
-        return;
-      }
-
-      const q = currentSpellPool[currentSIndex];
-
-      document.getElementById('spellingBox').innerHTML = `
-        <div class="quiz-question-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="color: var(--text-muted); font-weight: bold;">سؤال ${currentSIndex + 1} من ${currentSpellPool.length}</span>
-            ${spellModeChoice === '1min' ? `<span id="spellTimerDisplay" style="color: #e74c3c; font-weight: bold;">الوقت المتبقي: ${spellTimeLeft} ثانية</span>` : ''}
-          </div>
-          <h3 style="font-size: 20px; margin: 10px 0;">اكتب الكلمة بالإنجليزية لـ: <span style="color: var(--primary); font-size: 24px;">"${q.translation}"</span></h3>
-          
-          <input type="text" id="spellInput" class="type-input" placeholder="اكتب الكلمة هنا بالإنجليزية..." autocomplete="off" autocorrect="off" capitalized="off">
-          
-          <div id="feedbackBox"></div>
-
-          <button class="quiz-btn" id="btnSubmitSpell" style="width: 100%; margin-top: 15px;" onclick="submitSpellingAnswer('${q.word}')">تأكيد الإجابة</button>
-        </div>
-      `;
-
-      setTimeout(() => {
-        const inp = document.getElementById('spellInput');
-        if(inp) {
-          inp.focus();
-          inp.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-              submitSpellingAnswer(q.word);
-            }
-          });
-        }
-      }, 100);
-    }
-
-    function submitSpellingAnswer(correctWord) {
-      const inp = document.getElementById('spellInput');
-      const feedback = document.getElementById('feedbackBox');
-      const btn = document.getElementById('btnSubmitSpell');
-
-      if(!inp || btn.disabled) return;
-
-      const userTyped = inp.value.trim().toLowerCase();
-      const target = correctWord.trim().toLowerCase();
-
-      btn.disabled = true;
-      inp.disabled = true;
-
-      const dist = getEditDistance(userTyped, target);
-
-      if (userTyped === target) {
-        feedback.innerHTML = `<div class="feedback-banner feedback-correct">✅ Correct! إجابة صحيحة الممتازة.</div>`;
-        spellScore++;
-      } else if (dist <= 2 && target.length > 3) {
-        feedback.innerHTML = `<div class="feedback-banner feedback-close">⚠️ Close! إجابة قريبة جداً.<br>الإملاء الصحيح هو: <strong>${correctWord}</strong></div>`;
-        spellReviewList.push({ word: correctWord, typed: inp.value, status: 'Close' });
-      } else {
-        feedback.innerHTML = `<div class="feedback-banner feedback-wrong">❌ Wrong! الإملاء الصحيح هو: <strong>${correctWord}</strong></div>`;
-        spellReviewList.push({ word: correctWord, typed: inp.value, status: 'Wrong' });
-      }
-
-      setTimeout(() => {
-        currentSIndex++;
-        renderSpellingQuestion();
-      }, 1800);
-    }
-
-    function finishSpellingQuiz() {
-      if(spellTimerInterval) clearInterval(spellTimerInterval);
-
-      const finalPercent = Math.round((spellScore / currentSpellPool.length) * 100) || 0;
-
-      document.getElementById('spellingBox').innerHTML = `
-        <div class="quiz-question-box" style="text-align: center;">
-          <h2>🎉 انتهى التسميع الكتابي!</h2>
-          <p style="font-size: 20px; margin: 15px 0;">النتيجة النهائية: <strong>${spellScore} / ${currentSpellPool.length}</strong> (${finalPercent}%)</p>
-          
-          ${spellReviewList.length > 0 ? `
-            <div style="margin-top: 25px; text-align: right;">
-              <h3>مراجعة الإملاء والكلمات للتثبيت:</h3>
-              ${spellReviewList.map(item => `
-                <div class="error-card">
-                  <div>
-                    <strong>${item.word}</strong> - كتبت: <span style="color: ${item.status === 'Close' ? '#f39c12' : '#e74c3c'};">${item.typed || '(فارغ)'}</span> (${item.status})
-                  </div>
-                  <button class="quiz-btn" style="padding: 6px 12px; margin:0;" onclick="navigateToWord('${item.word}')">انتقل للكلمة</button>
-                </div>
-              `).join('')}
-            </div>
-          ` : '<p style="color: #2ecc71; margin-top: 15px; font-weight: bold;">ممتاز جداً! كل الكلمات كُتبت بإملاء صحيح 100%.</p>'}
-
-          <button class="quiz-btn" style="margin-top: 25px;" onclick="document.getElementById('spellingBox').style.display='none'">إغلاق التسميع</button>
-        </div>
-      `;
-    }
-
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    window.onload = loadData;
-  </script>
-</body>
-</html>
